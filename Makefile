@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-NAME	=	LESTETE
+NAME	=	GellyJump
 
 SRC		=	Core/Core.cpp				\
 			LibMenu/Button/Button.cpp	\

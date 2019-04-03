@@ -9,7 +9,7 @@
 
 #include "Button.hpp"
 
-void Button::init(int height, int width, std::string &texture)
+void Button::init(int height, int width, std::string &texture, std::string &font)
 {	
 	_rect.top = 0;
 	_rect.left = 0;
@@ -19,8 +19,8 @@ void Button::init(int height, int width, std::string &texture)
 	if (!_texture.loadFromFile(texture, _rect))
 		throw;
 
-	_sprite.setTexture(_texture);
-	_sprite.setTextureRect(_rect);
+	if (!_font.loadFromFile(font))
+		throw;
 }
 
 void Button::onClick(sf::Vector2i mouse)
@@ -55,6 +55,14 @@ void Button::onRelease(sf::Vector2i mouse)
 
 void Button::draw(sf::RenderWindow &window)
 {
+	if (_sprite.getTexture() == nullptr) {
+		_sprite.setTexture(_texture);
+	}
+
+	if (_text.getFont() == nullptr) {
+		_text.setFont(_font);
+	}
+
 	if (_isActivated) {
 		window.draw(_sprite);
 		window.draw(_text);
@@ -68,7 +76,7 @@ void Button::setPosition(sf::Vector2f &position)
 }
 
 void Button::setTexture(sf::Texture &texture) {_texture = texture;}
-void Button::setText(std::string text) {_text.setString(text);}
+void Button::setText(std::string &text) {_text.setString(text);}
 void Button::setRect(sf::IntRect &rect) {_rect = rect;}
 void Button::setHide(Button &button) {_toHide.push_back(std::make_shared<Button>(button));}
 

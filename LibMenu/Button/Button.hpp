@@ -18,7 +18,7 @@ class Button : public UI {
 		Button() = default;
 		~Button() = default;
 
-		void init(int height, int width, std::string &texture);
+		void init(int height, int width, std::string &texture, std::string &font);
 
 		void onClick(sf::Vector2i);
 		void onRelease(sf::Vector2i);
@@ -28,7 +28,7 @@ class Button : public UI {
 		//setters
 		void setPosition(sf::Vector2f &position);
 		void setTexture(sf::Texture &texture);
-		void setText(std::string text);
+		void setText(std::string &text);
 		void setRect(sf::IntRect &rect);
 		void setHide(Button &button);
 		void setHide(std::vector<std::shared_ptr<Button>> &buttons);
@@ -59,6 +59,7 @@ class Button : public UI {
 		sf::IntRect _rect;
 		sf::Sprite _sprite;
 		sf::Text _text;
+		sf::Font _font;
 };
 
 #endif /* !BUTTON_HPP_ */

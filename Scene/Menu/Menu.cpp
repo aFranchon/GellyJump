@@ -12,9 +12,10 @@
 void Menu::initMainMenu()
 {
 	Button newButton;
-	std::string string = "Ressources/boutton.png";
+	std::string string = "Ressources/menu/boutton.png";
+	std::string stringFont = "Ressources/fonts/manaspc.ttf";
 
-	newButton.init(100, 100, string);
+	newButton.init(100, 100, string, stringFont);
 	newButton.setActivated(true);
 	sf::Vector2f pos = {200, 200};
 	newButton.setPosition(pos);
@@ -27,9 +28,10 @@ void Menu::initMainMenu()
 void Menu::initOptionMenu()
 {
 	Button newButton;
-	std::string string = "Ressources/boutton.png";
+	std::string string = "Ressources/menu/boutton.png";
+	std::string stringFont = "Ressources/fonts/manaspc.ttf";
 
-	newButton.init(100, 100, string);
+	newButton.init(100, 100, string, stringFont);
 	newButton.setActivated(false);
 	sf::Vector2f pos = {400, 400};
 	newButton.setPosition(pos);
