@@ -1,0 +1,9 @@
+Le but est de faire un ensemble de classe qui appartiendront aux différents GameActors du jeu.
+
+Il faut qu'il y ai tout pour pouvoir faire bouger les GameActors.
+
+Il faut donc trouver de quoi 
+1) Sauter
+2) bouger
+3) avoir de la pesanteur
+4)...
