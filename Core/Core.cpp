@@ -9,7 +9,7 @@
 
 void Core::createWindow()
 {
-	_window.create(sf::VideoMode(800, 600), "Game");
+	_window.create(sf::VideoMode(1500, 900), "Game");
 }
 
 void Core::handleEvent()

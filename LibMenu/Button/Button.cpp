@@ -57,10 +57,14 @@ void Button::draw(sf::RenderWindow &window)
 {
 	if (_sprite.getTexture() == nullptr) {
 		_sprite.setTexture(_texture);
+		_sprite.setPosition(_sprite.getPosition());
 	}
 
 	if (_text.getFont() == nullptr) {
 		_text.setFont(_font);
+		sf::FloatRect textRect = _text.getLocalBounds();
+		_text.setOrigin(_text.getLocalBounds().left + _text.getLocalBounds().width/2.0f, _text.getLocalBounds().top  + _text.getLocalBounds().height/2.0f);
+		_text.setPosition(sf::Vector2f(_sprite.getPosition().x + _rect.width / 2,_sprite.getPosition().y + _rect.height / 2));
 	}
 
 	if (_isActivated) {
@@ -72,7 +76,10 @@ void Button::draw(sf::RenderWindow &window)
 void Button::setPosition(sf::Vector2f &position) 
 {
 	_sprite.setPosition(position);
-	_text.setPosition(_sprite.getPosition().x + 20, _sprite.getPosition().y + 20);//faire en fonction de la taille du sprite et tout et tout
+	
+	sf::FloatRect textRect = _text.getLocalBounds();
+	_text.setOrigin(_text.getLocalBounds().left + _text.getLocalBounds().width/2.0f, _text.getLocalBounds().top  + _text.getLocalBounds().height/2.0f);
+	_text.setPosition(sf::Vector2f(_sprite.getPosition().x + _rect.width / 2,_sprite.getPosition().y + _rect.height / 2));
 }
 
 void Button::setTexture(sf::Texture &texture) {_texture = texture;}

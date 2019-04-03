@@ -22,6 +22,8 @@ class Menu : public IScene{
 		void handleEvent(const sf::Event event);
 		void refresh();
 
+		static void quit();
+
 	protected:
 	private:
 		void initMainMenu();

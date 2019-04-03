@@ -11,18 +11,43 @@
 
 void Menu::initMainMenu()
 {
-	Button newButton;
 	std::string string = "Ressources/menu/boutton.png";
 	std::string stringFont = "Ressources/fonts/manaspc.ttf";
 
-	newButton.init(100, 100, string, stringFont);
-	newButton.setActivated(true);
-	sf::Vector2f pos = {200, 200};
-	newButton.setPosition(pos);
-	std::string text = "Options";
-	newButton.setText(text);
+	Button playButton;
 
-	_mainButtons.push_back(std::make_shared<Button>(newButton));
+	playButton.init(100, 100, string, stringFont);
+	playButton.setActivated(true);
+	sf::Vector2f pos = {_window->getSize().x / 2 - playButton.getRect().width / 2, 200};//warning convert int to flaot
+	playButton.setPosition(pos);
+	std::string text = "Play";
+	playButton.setText(text);
+
+	_mainButtons.push_back(std::make_shared<Button>(playButton));
+
+	Button optionButton;
+
+	optionButton.init(100, 100, string, stringFont);
+	optionButton.setActivated(true);
+	pos = {_window->getSize().x / 2 - optionButton.getRect().width / 2, 400};//warning convert int to flaot
+	optionButton.setPosition(pos);
+	text = "Options";
+	optionButton.setText(text);
+
+	_mainButtons.push_back(std::make_shared<Button>(optionButton));
+
+	Button quitButton;
+
+	quitButton.init(100, 100, string, stringFont);
+	quitButton.setActivated(true);
+	pos = {_window->getSize().x / 2 - quitButton.getRect().width / 2, 600};//warning convert int to flaot
+	quitButton.setPosition(pos);
+	text = "Quit";
+	quitButton.setText(text);
+	void(*function_type)() = &Menu::quit;
+	quitButton.setAction(function_type);
+
+	_mainButtons.push_back(std::make_shared<Button>(quitButton));
 }
 
 void Menu::initOptionMenu()
@@ -43,8 +68,8 @@ void Menu::initOptionMenu()
 
 void Menu::linkButtons()
 {
-	_mainButtons[0]->setHide(_mainButtons);
-	_mainButtons[0]->setShow(_optionButtons);
+	_mainButtons[1]->setHide(_mainButtons);
+	_mainButtons[1]->setShow(_optionButtons);
 
 	for (auto &elem : _mainButtons)
 		_buttons.push_back(elem);
@@ -55,6 +80,11 @@ void Menu::linkButtons()
 	for (auto &elem : _optionButtons)
 		_buttons.push_back(elem);
 
+}
+
+void Menu::quit()
+{
+	exit(0);
 }
 
 void Menu::init(sf::RenderWindow &window)
