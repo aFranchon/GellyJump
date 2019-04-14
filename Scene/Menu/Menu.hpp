@@ -12,6 +12,7 @@
 
     #include "Scene.hpp"
     #include "Button.hpp"
+    #include "Slider.hpp"
 
 class Menu : public IScene{
 	public:
@@ -31,9 +32,9 @@ class Menu : public IScene{
 		void linkButtons();
 
 		sf::RenderWindow * _window;
-		std::vector<std::shared_ptr<Button>> _buttons;
-		std::vector<std::shared_ptr<Button>> _mainButtons;
-		std::vector<std::shared_ptr<Button>> _optionButtons;
+		std::vector<std::shared_ptr<UI>> _buttons;
+		std::vector<std::shared_ptr<UI>> _mainButtons;
+		std::vector<std::shared_ptr<UI>> _optionButtons;
 };
 
 #endif /* !MENU_HPP_ */

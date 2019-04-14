@@ -10,32 +10,31 @@
 
     #include <memory>
 
-    #include "../UI.hpp"
+    #include "UI.hpp"
 
 class Button : public UI {
 	public:
-		typedef void(*function_type)();
 		Button() = default;
+		Button(const int height = 100, const int width = 100, const std::string &texture = "Ressources/menu/boutton.png",
+		const std::string &font = "Ressources/fonts/manaspc.ttf");
 		~Button() = default;
 
-		void init(int height, int width, std::string &texture, std::string &font);
+		void draw(sf::RenderWindow &window);
+		void init(const int height, const int width, const std::string &texture, const std::string &font);
 
 		void onClick(sf::Vector2i);
 		void onRelease(sf::Vector2i);
+		void onMove(sf::Vector2i) {};
 
-		void draw(sf::RenderWindow &window);
+		//methods to add actions to an UI element
+		void setAction(function_type &action) {_action.push_back(action);};
+		void setAction(std::vector<function_type> &actions);
 
 		//setters
 		void setPosition(sf::Vector2f &position);
 		void setTexture(sf::Texture &texture);
 		void setText(std::string &text);
 		void setRect(sf::IntRect &rect);
-		void setHide(Button &button);
-		void setHide(std::vector<std::shared_ptr<Button>> &buttons);
-		void setShow(Button &button);
-		void setShow(std::vector<std::shared_ptr<Button>> &buttons);
-		void setAction(function_type &action);
-		void setAction(std::vector<function_type> &actions);
 
 		//getters
 		sf::Vector2f getPosition() const;
@@ -47,19 +46,6 @@ class Button : public UI {
 	private:
 		//actions to be called when released
 		std::vector<function_type> _action;
-
-		//Buttons to hide
-		std::vector<std::shared_ptr<UI>> _toHide;
-
-		//Buttons to show
-		std::vector<std::shared_ptr<UI>> _toShow;
-		
-		//SFML button
-		sf::Texture _texture;
-		sf::IntRect _rect;
-		sf::Sprite _sprite;
-		sf::Text _text;
-		sf::Font _font;
 };
 
 #endif /* !BUTTON_HPP_ */
