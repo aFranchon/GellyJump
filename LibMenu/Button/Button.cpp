@@ -17,7 +17,6 @@ Button::Button(const int height, const int width, const std::string &texture, co
 void Button::init(const int height, const int width, const std::string &texture, const std::string &font)
 {
 	sf::IntRect rect;
-
 	rect.top = 0;
 	rect.left = 0;
 	rect.height = height;
@@ -25,18 +24,15 @@ void Button::init(const int height, const int width, const std::string &texture,
 	_rects.push_back(rect);
 
 	sf::Sprite sprite;
-
 	sprite.setOrigin(rect.width / 2, rect.height / 2);
 	_sprites.push_back(sprite);
 
 	sf::Texture textureButton;
-
 	if (!textureButton.loadFromFile(texture, rect))
 		throw;
 	_textures.push_back(textureButton);
 
 	sf::Font fontButton;
-
 	if (!fontButton.loadFromFile(font))
 		throw;
 	_fonts.push_back(fontButton);
@@ -109,9 +105,3 @@ sf::Vector2f Button::getPosition() const {return _sprites[0].getPosition();}
 sf::Texture Button::getTexture() const {return _textures[0];}
 sf::Text Button::getText() const {return _texts[0];}
 sf::IntRect Button::getRect() const {return _rects[0];}
-
-void Button::setAction(std::vector<function_type> &actions)
-{
-	for (auto &elem : actions)
-		_action.push_back(elem);
-}

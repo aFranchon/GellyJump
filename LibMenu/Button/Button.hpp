@@ -26,10 +26,6 @@ class Button : public UI {
 		void onRelease(sf::Vector2i);
 		void onMove(sf::Vector2i) {};
 
-		//methods to add actions to an UI element
-		void setAction(function_type &action) {_action.push_back(action);};
-		void setAction(std::vector<function_type> &actions);
-
 		//setters
 		void setPosition(sf::Vector2f &position);
 		void setTexture(sf::Texture &texture);
@@ -44,8 +40,6 @@ class Button : public UI {
 
 	protected:
 	private:
-		//actions to be called when released
-		std::vector<function_type> _action;
 };
 
 #endif /* !BUTTON_HPP_ */

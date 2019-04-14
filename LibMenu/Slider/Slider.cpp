@@ -20,104 +20,136 @@ void Slider::init(	int heightSlider, int widthSlider, const std::string &texture
 			int heightButton, int widthButton, const std::string &textureButton,
 			const std::string &font, const int value)
 {
-	_rectButton.top = 0;
-	_rectButton.left = 0;
-	_rectButton.height = heightButton;
-	_rectButton.width = widthButton;
+	sf::IntRect rectButton;
+	rectButton.top = 0;
+	rectButton.left = 0;
+	rectButton.height = heightButton;
+	rectButton.width = widthButton;
+	_rects.push_back(rectButton);
 
-	_spriteButton.setOrigin(_rectButton.width / 2, _rectButton.height / 2);
+	sf::Sprite spriteButton;
+	spriteButton.setOrigin(_rects[0].width / 2, _rects[0].height / 2);
+	_sprites.push_back(spriteButton);
 
-	if (!_texture.loadFromFile(textureButton, _rectButton))
+	sf::Texture textureButtonTmp;
+	if (!textureButtonTmp.loadFromFile(textureButton, _rects[0]))
 		throw;
+	_textures.push_back(textureButtonTmp);
 
-	_rectSlider.top = 0;
-	_rectSlider.left = 0;
-	_rectSlider.height = heightSlider;
-	_rectSlider.width = widthSlider;
+	sf::IntRect rectSlider;
+	rectSlider.top = 0;
+	rectSlider.left = 0;
+	rectSlider.height = heightSlider;
+	rectSlider.width = widthSlider;
+	_rects.push_back(rectSlider);
 
-	_spriteButton.setOrigin(_rectSlider.width / 2, _rectSlider.height / 2);
+	sf::Sprite spriteSlider;
+	spriteSlider.setOrigin(_rects[1].width / 2, _rects[1].height / 2);
+	_sprites.push_back(spriteSlider);
 
-	if (!_texture.loadFromFile(textureButton, _rectSlider))
+	sf::Text textureButtonTmp;
+	if (!textureButtonTmp.loadFromFile(textureButton, _rects[1]))
 		throw;
+	_textures.push_back(textureButtonTmp);
 
-	if (!_font.loadFromFile(font))
+	sf::Font fontSlider;
+	if (!fontSlider.loadFromFile(font))
 		throw;
+	_fonts.push_back(fontSlider);
+
+	sf::Text text;
+	_texts.push_back(text);
 
 	_value = value;
 }
 
 void Slider::onClick(sf::Vector2i mouse)
 {
+	if (_sprites[1].getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse))) {
+		_rects[1].top += _rects[1].height;
+		_isClicked = true;
+	} else {
+		_rects[1].top = 0;
+		_rects[1].left = 0;
+		_isClicked = true;
+	}
 }
 
 void Slider::onRelease(sf::Vector2i mouse)
 {
+	if (_sprites[0].getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse)) && (_rects[0].top != 0 || _rects[0].left != 0)) {
+		_rects[0].top += _rects[0].height;
+		for (auto &elem : _toHide)
+			elem->setActivated(false);
+		for (auto &elem : _toShow)
+			elem->setActivated(true);
+		for (auto &elem : _action)
+			elem();
+	} else {
+		_rects[0].top = 0;
+		_rects[0].left = 0;
+	}
+	_isClicked = false;
 }
 
 void Slider::onMove(sf::Vector2i mouse)
 {
+	if (!_isClicked)
+		return;
+	if (mouse.x <= _sprites[0].getPosition().x - _rects[0].width / 2)
+		_value = _minValue;
+	else if (mouse.x >= _sprites[0].getPosition().x + _rects[0].width / 2)
+		_value = _maxValue;
+	else
+		;//Do maths to get the _value
 }
 
 void Slider::draw(sf::RenderWindow &window)
 {
-	if (_sprite.getTexture() == nullptr) {
-		_sprite.setTexture(_texture);
-		_sprite.setPosition(_sprite.getPosition());
+	if (_sprites[0].getTexture() == nullptr) {
+		_sprites[0].setTexture(_textures[0]);
+		_sprites[0].setPosition(_sprites[0].getPosition());
 	}
 
-	if (_text.getFont() == nullptr) {
-		_text.setFont(_font);
-		sf::FloatRect textRect = _text.getLocalBounds();
-		_text.setOrigin(_text.getLocalBounds().left + _text.getLocalBounds().width/2.0f, _text.getLocalBounds().top  + _text.getLocalBounds().height/2.0f);
-		_text.setPosition(_sprite.getPosition());
+	if (_sprites[0].getTexture() == nullptr) {
+		_sprites[1].setTexture(_textures[1]);
+		_sprites[1].setPosition(_sprites[1].getPosition());
+	}
+
+	if (_texts[0].getFont() == nullptr) {
+		_texts[0].setFont(_fonts[0]);
+		sf::FloatRect textRect = _texts[0].getLocalBounds();
+		_texts[0].setOrigin(	_texts[0].getLocalBounds().left + _texts[0].getLocalBounds().width/2.0f,
+		 			_texts[0].getLocalBounds().top  + _texts[0].getLocalBounds().height/2.0f);
+		_texts[0].setPosition(_sprites[0].getPosition());
 	}
 
 	if (_isActivated) {
-		window.draw(_sprite);
-		window.draw(_text);
+		for (auto &elem : _sprites)
+			window.draw(elem);
+		window.draw(_texts[0]);
 	}
 }
 
 void Slider::setPosition(sf::Vector2f &position) 
 {
-	_spriteSlider.setPosition(position);
+	_sprites[0].setPosition(position);
 
-	_spriteButton.setPosition(_spriteSlider.getPosition().x + , _spriteSlider.getPosition().y);
+	_sprites[1].setPosition(_sprites[0].getPosition().x /*TO COMPLETE, need to put the cursor in the right place*/, _sprites[0].getPosition().y);
 
-	sf::FloatRect textRect = _text.getLocalBounds();
-	_text.setOrigin(_text.getLocalBounds().left + _text.getLocalBounds().width/2.0f, _text.getLocalBounds().top  + _text.getLocalBounds().height/2.0f);
-	_text.setPosition(_spriteButton.getPosition().x, _spriteButton.getPosition().y - _rectSlider.height);
+	sf::FloatRect textRect = _texts[0].getLocalBounds();
+	_texts[0].setOrigin(	_texts[0].getLocalBounds().left + _texts[0].getLocalBounds().width/2.0f,
+				_texts[0].getLocalBounds().top  + _texts[0].getLocalBounds().height/2.0f);
+	_texts[0].setPosition(_sprites[0].getPosition().x, _sprites[0].getPosition().y - _rects[0].height);
 }
 
-void Slider::setTexture(sf::Texture &texture) {_texture = texture;}
-void Slider::setText(std::string &text) {_text.setString(text);}
-void Slider::setRect(sf::IntRect &rect) {_rect = rect;}
-void Slider::setActivated(bool isActivated) {_isActivated = isActivated;}
+void Slider::setValue(int value) {_value = value;}
 
-sf::Vector2f Slider::getPosition() const {return _sprite.getPosition();}
-sf::Texture Slider::getTexture() const {return _texture;}
-sf::Text Slider::getText() const {return _text;}
-sf::IntRect Slider::getRect() const {return _rect;}
-bool Slider::isActivated() const {return _isActivated;}
-
-void Slider::setHide(std::shared_ptr<UI> &Slider) {_toHide.push_back(Slider);}
-
-void Slider::setHide(std::vector<std::shared_ptr<UI>> &Sliders) 
+void Slider::setMaxMinValues(int min, int max)
 {
-	for (auto &elem : Sliders)
-		_toHide.push_back(elem);
+	_maxValue = max;
+	_minValue = min;
 }
 
-void Slider::setShow(std::shared_ptr<UI> &Slider) {_toShow.push_back(Slider);}
-
-void Slider::setShow(std::vector<std::shared_ptr<UI>> &Sliders) 
-{
-	for (auto &elem : Sliders)
-		_toShow.push_back(elem);
-}
-
-void Slider::setAction(std::vector<function_type> &actions)
-{
-	for (auto &elem : actions)
-		_action.push_back(elem);
-}
+sf::Vector2f Slider::getPosition() const {return _sprites[0].getPosition();}
+int Slider::getValue() const {return _value;}

@@ -23,6 +23,14 @@ class UI {
 		virtual void setActivated(bool activated) {_isActivated = activated;};
 		virtual bool isActivated() const {return _isActivated;};
 
+		//methods to add actions to an UI element
+		void setAction(function_type &action) {_action.push_back(action);};
+		void setAction(std::vector<function_type> &actions) 
+		{	
+			for (auto &elem : actions)
+				_action.push_back(elem);
+		}
+
 		void setHide(std::shared_ptr<UI> button) {_toHide.push_back(button);}
 
 		void setHide(std::vector<std::shared_ptr<UI>> buttons) 
@@ -40,6 +48,9 @@ class UI {
 		}
 
 		protected:
+			//actions to be called when released
+			std::vector<function_type> _action;
+
 			//Buttons to hide
 			std::vector<std::shared_ptr<UI>> _toHide;
 
