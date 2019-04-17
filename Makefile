@@ -9,6 +9,7 @@ NAME	=	GellyJump
 
 SRC		=	Core/Core.cpp				\
 			LibMenu/Button/Button.cpp	\
+			LibMenu/Slider/Slider.cpp	\
 			Scene/Game/Player/Player.cpp\
 			Scene/Game/Game.cpp			\
 			Scene/Menu/Menu.cpp			\

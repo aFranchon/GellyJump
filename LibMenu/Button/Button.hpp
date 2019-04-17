@@ -14,7 +14,6 @@
 
 class Button : public UI {
 	public:
-		Button() = default;
 		Button(const int height = 100, const int width = 100, const std::string &texture = "Ressources/menu/boutton.png",
 		const std::string &font = "Ressources/fonts/manaspc.ttf");
 		~Button() = default;

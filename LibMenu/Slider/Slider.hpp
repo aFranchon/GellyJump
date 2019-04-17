@@ -12,11 +12,10 @@
 
 class Slider : public UI {
 	public:
-		Slider() = delete;
-		Slider(	int heightSlider = 30, int widthSlider = 300, const std::string &textureSlider = "Ressources/menu/boutton.png", 
-			int heightButton = 30, int widthButton = 30, const std::string &textureButton = "Ressources/menu/bouttonSlider.png",
+		Slider(	int heightSlider = 30, int widthSlider = 300, const std::string &textureSlider = "Ressources/menu/slider.png", 
+			int heightButton = 30, int widthButton = 30, const std::string &textureButton = "Ressources/menu/buttonSlider.png",
 			const std::string &font = "Ressources/fonts/manaspc.ttf", const int value = 100);
-		~Slider();
+		~Slider() = default;
 
 		//will draw only if isActivated
 		void init(	int heightSlider, int widthSlider, const std::string &textureSlider, 
@@ -30,6 +29,7 @@ class Slider : public UI {
 
 		//setters
 		void setPosition(sf::Vector2f &position);
+		void setText(const std::string &text);
 		int getValue() const;
 
 		//getters

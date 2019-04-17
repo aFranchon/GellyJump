@@ -49,13 +49,31 @@ void Menu::initMainMenu()
 
 void Menu::initOptionMenu()
 {
-	std::string string = "Ressources/menu/boutton.png";
-	std::string stringFont = "Ressources/fonts/manaspc.ttf";
 
-	Button *backButton = new Button(100, 100, string, stringFont);
+	Slider *sliderSound = new Slider();
+
+	sliderSound->setActivated(false);
+	sf::Vector2f pos = {static_cast<float>(_window->getSize().x / 2), 200};
+	sliderSound->setPosition(pos);
+	sliderSound->setText("Sound");
+	sliderSound->setMaxMinValues(0, 100);
+
+	_optionButtons.push_back(std::shared_ptr<UI>(sliderSound));
+
+	Slider *sliderFps = new Slider();
+
+	sliderFps->setActivated(false);
+	pos = {static_cast<float>(_window->getSize().x / 2), 400};
+	sliderFps->setPosition(pos);
+	sliderFps->setText("FPS");
+	sliderFps->setMaxMinValues(0, 100);
+
+	_optionButtons.push_back(std::shared_ptr<UI>(sliderFps));
+
+	Button *backButton = new Button();
 
 	backButton->setActivated(false);
-	sf::Vector2f pos = {static_cast<float>(_window->getSize().x / 2), 500};
+	pos = {static_cast<float>(_window->getSize().x / 2), 600};
 	backButton->setPosition(pos);
 	std::string text = "Back";
 	backButton->setText(text);
@@ -71,8 +89,8 @@ void Menu::linkButtons()
 	for (auto &elem : _mainButtons)
 		_buttons.push_back(elem);
 
-	_optionButtons[0]->setHide(_optionButtons);
-	_optionButtons[0]->setShow(_mainButtons);
+	_optionButtons[2]->setHide(_optionButtons);
+	_optionButtons[2]->setShow(_mainButtons);
 
 	for (auto &elem : _optionButtons)
 		_buttons.push_back(elem);
@@ -105,6 +123,13 @@ void Menu::handleEvent(const sf::Event event)
 		for (auto &elem : _buttons) {
 			if (elem->isActivated())
 				elem->onRelease(sf::Mouse::getPosition(*_window));
+		}
+	}
+
+	if (event.type == sf::Event::MouseMoved) {
+		for (auto &elem : _buttons) {
+			if (elem->isActivated())
+				elem->onMove(sf::Mouse::getPosition(*_window));
 		}
 	}
 }

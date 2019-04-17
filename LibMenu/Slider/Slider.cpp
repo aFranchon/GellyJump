@@ -5,6 +5,8 @@
 ** Slider
 */
 
+#include <iostream>
+
 #include "Slider.hpp"
 
 Slider::Slider(	int heightSlider, int widthSlider, const std::string &textureSlider, 
@@ -20,21 +22,6 @@ void Slider::init(	int heightSlider, int widthSlider, const std::string &texture
 			int heightButton, int widthButton, const std::string &textureButton,
 			const std::string &font, const int value)
 {
-	sf::IntRect rectButton;
-	rectButton.top = 0;
-	rectButton.left = 0;
-	rectButton.height = heightButton;
-	rectButton.width = widthButton;
-	_rects.push_back(rectButton);
-
-	sf::Sprite spriteButton;
-	spriteButton.setOrigin(_rects[0].width / 2, _rects[0].height / 2);
-	_sprites.push_back(spriteButton);
-
-	sf::Texture textureButtonTmp;
-	if (!textureButtonTmp.loadFromFile(textureButton, _rects[0]))
-		throw;
-	_textures.push_back(textureButtonTmp);
 
 	sf::IntRect rectSlider;
 	rectSlider.top = 0;
@@ -44,10 +31,26 @@ void Slider::init(	int heightSlider, int widthSlider, const std::string &texture
 	_rects.push_back(rectSlider);
 
 	sf::Sprite spriteSlider;
-	spriteSlider.setOrigin(_rects[1].width / 2, _rects[1].height / 2);
+	spriteSlider.setOrigin(_rects[0].width / 2, _rects[0].height / 2);
 	_sprites.push_back(spriteSlider);
 
-	sf::Text textureButtonTmp;
+	sf::Texture textureSliderTmp;
+	if (!textureSliderTmp.loadFromFile(textureSlider, _rects[0]))
+		throw;
+	_textures.push_back(textureSliderTmp);
+
+	sf::IntRect rectButton;
+	rectButton.top = 0;
+	rectButton.left = 0;
+	rectButton.height = heightButton;
+	rectButton.width = widthButton;
+	_rects.push_back(rectButton);
+
+	sf::Sprite spriteButton;
+	spriteButton.setOrigin(_rects[1].width / 2, _rects[1].height / 2);
+	_sprites.push_back(spriteButton);
+
+	sf::Texture textureButtonTmp;
 	if (!textureButtonTmp.loadFromFile(textureButton, _rects[1]))
 		throw;
 	_textures.push_back(textureButtonTmp);
@@ -65,13 +68,14 @@ void Slider::init(	int heightSlider, int widthSlider, const std::string &texture
 
 void Slider::onClick(sf::Vector2i mouse)
 {
-	if (_sprites[1].getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse))) {
+	if (_sprites[0].getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse))) {
+		_sprites[1].setPosition(mouse.x, _sprites[0].getPosition().y);
 		_rects[1].top += _rects[1].height;
 		_isClicked = true;
 	} else {
 		_rects[1].top = 0;
 		_rects[1].left = 0;
-		_isClicked = true;
+		_isClicked = false;
 	}
 }
 
@@ -96,12 +100,16 @@ void Slider::onMove(sf::Vector2i mouse)
 {
 	if (!_isClicked)
 		return;
-	if (mouse.x <= _sprites[0].getPosition().x - _rects[0].width / 2)
+	if (mouse.x <= _sprites[0].getPosition().x - _rects[0].width / 2) {
 		_value = _minValue;
-	else if (mouse.x >= _sprites[0].getPosition().x + _rects[0].width / 2)
+		_sprites[1].setPosition(_sprites[0].getPosition().x - _rects[0].width / 2, _sprites[0].getPosition().y);
+	} else if (mouse.x >= _sprites[0].getPosition().x + _rects[0].width / 2) {
 		_value = _maxValue;
-	else
-		;//Do maths to get the _value
+		_sprites[1].setPosition(_sprites[0].getPosition().x + _rects[0].width / 2, _sprites[0].getPosition().y);
+	} else {
+		_sprites[1].setPosition(mouse.x, _sprites[0].getPosition().y);
+		_value = (mouse.x - _sprites[0].getPosition().x) / _rects[0].width * _maxValue;
+	}
 }
 
 void Slider::draw(sf::RenderWindow &window)
@@ -111,7 +119,7 @@ void Slider::draw(sf::RenderWindow &window)
 		_sprites[0].setPosition(_sprites[0].getPosition());
 	}
 
-	if (_sprites[0].getTexture() == nullptr) {
+	if (_sprites[1].getTexture() == nullptr) {
 		_sprites[1].setTexture(_textures[1]);
 		_sprites[1].setPosition(_sprites[1].getPosition());
 	}
@@ -121,7 +129,7 @@ void Slider::draw(sf::RenderWindow &window)
 		sf::FloatRect textRect = _texts[0].getLocalBounds();
 		_texts[0].setOrigin(	_texts[0].getLocalBounds().left + _texts[0].getLocalBounds().width/2.0f,
 		 			_texts[0].getLocalBounds().top  + _texts[0].getLocalBounds().height/2.0f);
-		_texts[0].setPosition(_sprites[0].getPosition());
+		_texts[0].setPosition(_texts[0].getPosition());
 	}
 
 	if (_isActivated) {
@@ -135,7 +143,7 @@ void Slider::setPosition(sf::Vector2f &position)
 {
 	_sprites[0].setPosition(position);
 
-	_sprites[1].setPosition(_sprites[0].getPosition().x /*TO COMPLETE, need to put the cursor in the right place*/, _sprites[0].getPosition().y);
+	_sprites[1].setPosition(_sprites[0].getPosition().x - _rects[0].width / 2 + ((_value / _maxValue) * _rects[0].width), _sprites[0].getPosition().y);
 
 	sf::FloatRect textRect = _texts[0].getLocalBounds();
 	_texts[0].setOrigin(	_texts[0].getLocalBounds().left + _texts[0].getLocalBounds().width/2.0f,
@@ -143,6 +151,7 @@ void Slider::setPosition(sf::Vector2f &position)
 	_texts[0].setPosition(_sprites[0].getPosition().x, _sprites[0].getPosition().y - _rects[0].height);
 }
 
+void Slider::setText(const std::string &text) {_texts[0].setString(text);}
 void Slider::setValue(int value) {_value = value;}
 
 void Slider::setMaxMinValues(int min, int max)
