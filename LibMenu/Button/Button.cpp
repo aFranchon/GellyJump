@@ -51,7 +51,7 @@ void Button::onClick(sf::Vector2i mouse)
 	}
 }
 
-void Button::onRelease(sf::Vector2i mouse)
+int Button::onRelease(sf::Vector2i mouse)
 {
 	if (_sprites[0].getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse)) && (_rects[0].top != 0 || _rects[0].left != 0)) {
 		_rects[0].top += _rects[0].height;
@@ -59,12 +59,14 @@ void Button::onRelease(sf::Vector2i mouse)
 			elem->setActivated(false);
 		for (auto &elem : _toShow)
 			elem->setActivated(true);
-		for (auto &elem : _action)
-			elem(0);
+		for (auto &elem : _action) {
+			return elem();
+		}
 	} else {
 		_rects[0].top = 0;
 		_rects[0].left = 0;
 	}
+	return 0;
 }
 
 void Button::onMove(sf::Vector2i mouse)

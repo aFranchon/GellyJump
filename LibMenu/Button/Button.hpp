@@ -18,9 +18,10 @@ class Button : public UI {
 		~Button() = default;
 
 		void init(const int height, const int width, const std::string &texture, const std::string &font);
+
 		void onClick(sf::Vector2i mouse);
-		void onRelease(sf::Vector2i mouse);
 		void onMove(sf::Vector2i mouse);
+		int onRelease(sf::Vector2i mouse);
 		void draw(sf::RenderWindow &window);
 
 		//setters

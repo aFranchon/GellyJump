@@ -18,7 +18,6 @@ class IScene {
 
 		virtual void refresh() = 0;
 		virtual void handleEvent(const sf::Event event) = 0;
-		virtual void init(sf::RenderWindow &window) = 0;
 
 	protected:
 	private:

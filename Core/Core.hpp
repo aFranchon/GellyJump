@@ -24,8 +24,11 @@ class Core {
 	private:
 		void handleEvent();
 
+		bool _isPlay = false;
+
 		Game _game;
 		Menu _menu;
+
 		sf::RenderWindow _window;
 };
 

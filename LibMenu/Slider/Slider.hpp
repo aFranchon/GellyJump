@@ -23,7 +23,7 @@ class Slider : public UI {
 					const std::string &font, const int value);
 
 		void onClick(sf::Vector2i mouse);
-		void onRelease(sf::Vector2i mouse);
+		int onRelease(sf::Vector2i mouse);
 		void onMove(sf::Vector2i mouse);
 		void draw(sf::RenderWindow &window);
 
@@ -38,7 +38,6 @@ class Slider : public UI {
 		int getValue() const;
 	private:
 		//value for the slider
-		int _value = 100;
 		int _minValue = 0;
 		int _maxValue = 100;
 

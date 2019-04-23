@@ -17,7 +17,7 @@ class Game {
 		Game() = default;
 		~Game() = default;
 
-		void init(sf::RenderWindow window);
+		void init(sf::RenderWindow &window);
 		void refresh();
 		void handleEvent(const sf::Event event);
 

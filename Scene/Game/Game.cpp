@@ -12,7 +12,7 @@ void Game::handleEvent(sf::Event event)
 	
 }
 
-void Game::init(sf::RenderWindow window)
+void Game::init(sf::RenderWindow &window)
 {
 	_window = &window;
 }

@@ -21,6 +21,8 @@ void Menu::initMainMenu()
 	playButton->setPosition(pos);
 	std::string text = "Play";
 	playButton->setText(text);
+	int (*function_type)(void) = play;
+	playButton->setAction(function_type);
 
 	_mainButtons.push_back(std::shared_ptr<UI>(playButton));
 
@@ -41,7 +43,7 @@ void Menu::initMainMenu()
 	quitButton->setPosition(pos);
 	text = "Quit";
 	quitButton->setText(text);
-	void(*function_type)(int) = &quit;
+	function_type = quit;
 	quitButton->setAction(function_type);
 
 	_mainButtons.push_back(std::shared_ptr<UI>(quitButton));
@@ -49,7 +51,6 @@ void Menu::initMainMenu()
 
 void Menu::initOptionMenu()
 {
-
 	Slider *sliderSound = new Slider();
 
 	sliderSound->setActivated(false);
@@ -57,6 +58,8 @@ void Menu::initOptionMenu()
 	sliderSound->setPosition(pos);
 	sliderSound->setText("Sound");
 	sliderSound->setMaxMinValues(0, 100);
+	int (*function_type)(void) = volume;
+	sliderSound->setAction(function_type);
 
 	_optionButtons.push_back(std::shared_ptr<UI>(sliderSound));
 
@@ -67,6 +70,8 @@ void Menu::initOptionMenu()
 	sliderFps->setPosition(pos);
 	sliderFps->setText("FPS");
 	sliderFps->setMaxMinValues(0, 100);
+	function_type = fps;
+	sliderFps->setAction(function_type);
 
 	_optionButtons.push_back(std::shared_ptr<UI>(sliderFps));
 
@@ -79,11 +84,6 @@ void Menu::initOptionMenu()
 	backButton->setText(text);
 	
 	_optionButtons.push_back(std::shared_ptr<UI>(backButton));
-}
-
-void Menu::quit(int i)
-{
-	exit(0);
 }
 
 void Menu::linkButtons()
@@ -101,15 +101,21 @@ void Menu::linkButtons()
 		_buttons.push_back(elem);
 }
 
-void Menu::init(sf::RenderWindow &window)
+void Menu::init(sf::RenderWindow &window, bool &isPlay)
 {
 	_window = &window;
+	this->isPlay = &isPlay;
 
 	initMainMenu();
 	initOptionMenu();
 	
 	linkButtons();
-} 
+
+	_tab.push_back(&Menu::doNothing);
+	_tab.push_back(&Menu::setFPS);
+	_tab.push_back(&Menu::setVolume);
+	_tab.push_back(&Menu::playGame);
+}
 
 void Menu::handleEvent(const sf::Event event)
 {
@@ -121,8 +127,10 @@ void Menu::handleEvent(const sf::Event event)
 
 	if (event.type == sf::Event::MouseButtonReleased) {
 		for (auto &elem : _buttons) {
-			if (elem->isActivated())
-				elem->onRelease(sf::Mouse::getPosition(*_window));
+			if (elem->isActivated()) {
+				std::function<void(Menu&, int)>function = _tab[elem->onRelease(sf::Mouse::getPosition(*_window))];
+				function(*this, elem->getValue());
+			}
 		}
 	}
 
@@ -139,3 +147,13 @@ void Menu::refresh()
 	for (auto &elem : _buttons)
 		elem->draw(*_window);
 }
+
+void Menu::setFPS(int fps) {_window->setFramerateLimit(static_cast<unsigned int>(fps));}
+void Menu::setVolume(int volume) {;/*to see later*/}
+void Menu::doNothing(int nothing) {;}
+void Menu::playGame(int i) {*isPlay = true;}
+
+int Menu::fps() {return 1;}
+int Menu::volume() {return 2;}
+int Menu::play() {return 3;}
+int Menu::quit() {exit(0);}

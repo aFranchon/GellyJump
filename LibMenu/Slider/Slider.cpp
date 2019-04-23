@@ -79,7 +79,7 @@ void Slider::onClick(sf::Vector2i mouse)
 	}
 }
 
-void Slider::onRelease(sf::Vector2i mouse)
+int Slider::onRelease(sf::Vector2i mouse)
 {
 	if (_sprites[0].getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse)) && (_rects[0].top != 0 || _rects[0].left != 0)) {
 		_rects[0].top += _rects[0].height;
@@ -88,12 +88,13 @@ void Slider::onRelease(sf::Vector2i mouse)
 		for (auto &elem : _toShow)
 			elem->setActivated(true);
 		for (auto &elem : _action)
-			elem(_value);
+			return elem();
 	} else {
 		_rects[0].top = 0;
 		_rects[0].left = 0;
 	}
 	_isClicked = false;
+	return 0;
 }
 
 void Slider::onMove(sf::Vector2i mouse)

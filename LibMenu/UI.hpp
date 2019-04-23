@@ -10,29 +10,24 @@
     
     #include <SFML/Graphics.hpp>
     #include <memory>
+    #include <functional>
 
 class UI {
 	public:
-		typedef void(*function_type)(int);
+		typedef int (*function_type)(void);
 
 		virtual void draw(sf::RenderWindow &window) = 0;
 		virtual void onClick(sf::Vector2i) = 0;
-		virtual void onRelease(sf::Vector2i) = 0;
+		virtual int onRelease(sf::Vector2i) = 0;
 		virtual void onMove(sf::Vector2i) = 0;
 
-		virtual void setActivated(bool activated) {_isActivated = activated;};
-		virtual bool isActivated() const {return _isActivated;};
+		void setActivated(bool activated) {_isActivated = activated;};
+		bool isActivated() const {return _isActivated;};
 
 		//methods to add actions to an UI element
 		void setAction(function_type &action) {_action.push_back(action);};
-		void setAction(std::vector<function_type> &actions) 
-		{	
-			for (auto &elem : actions)
-				_action.push_back(elem);
-		}
 
 		void setHide(std::shared_ptr<UI> button) {_toHide.push_back(button);}
-
 		void setHide(std::vector<std::shared_ptr<UI>> buttons) 
 		{
 			for (auto &elem : buttons)
@@ -40,12 +35,13 @@ class UI {
 		}
 
 		void setShow(std::shared_ptr<UI> button) {_toShow.push_back(button);}
-
 		void setShow(std::vector<std::shared_ptr<UI>> buttons) 
 		{
 			for (auto &elem : buttons)
 				_toShow.push_back(elem);
 		}
+
+		int getValue() const {return _value;};
 
 		protected:
 			//actions to be called when released
@@ -58,6 +54,8 @@ class UI {
 			std::vector<std::shared_ptr<UI>> _toShow;
 
 			bool _isActivated = false;
+
+			int _value = 0;
 
 			//Vectors of SFML elements
 			std::vector<sf::Texture> _textures;

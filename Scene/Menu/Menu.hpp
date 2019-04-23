@@ -16,14 +16,23 @@
 
 class Menu : public IScene{
 	public:
+		typedef void function_type(int);
 		Menu() = default;
 		~Menu() = default;
 
-		void init(sf::RenderWindow &window);
+		void init(sf::RenderWindow &window, bool &isPlay);
 		void handleEvent(const sf::Event event);
 		void refresh();
 
-		static void quit(int i);
+		static int quit();
+		static int fps();
+		static int volume();
+		static int play();
+
+		void doNothing(int nothing);
+		void setFPS(int fps);
+		void setVolume(int volume);
+		void playGame(int i);
 
 	private:
 		void initMainMenu();
@@ -31,9 +40,11 @@ class Menu : public IScene{
 		void linkButtons();
 
 		sf::RenderWindow * _window;
+		bool *isPlay;
 		std::vector<std::shared_ptr<UI>> _buttons;
 		std::vector<std::shared_ptr<UI>> _mainButtons;
 		std::vector<std::shared_ptr<UI>> _optionButtons;
+		std::vector<std::function<void(Menu&, int)>> _tab;
 };
 
 #endif /* !MENU_HPP_ */

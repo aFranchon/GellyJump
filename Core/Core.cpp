@@ -5,12 +5,16 @@
 ** Core
 */
 
+#include <iostream>
+
 #include "Core.hpp"
 
 void Core::createWindow()
 {
-	_window.create(sf::VideoMode(1500, 900), "Game");
+	_window.create(sf::VideoMode(1500, 900), "GellyJump");
 }
+
+
 
 void Core::handleEvent()
 {
@@ -24,13 +28,17 @@ void Core::handleEvent()
 
 void Core::run()
 {
-	_menu.init(_window);
-
+	_menu.init(_window, _isPlay); 
+	_game.init(_window);
 	while (_window.isOpen())
 	{
 		_window.clear();
 		handleEvent();
-		_menu.refresh();
+		std::cout <<"ici " <<_isPlay <<std::endl;
+		if (!_isPlay)
+			_menu.refresh();
+		else
+			_game.refresh();
 		_window.display();
 	}
 }
