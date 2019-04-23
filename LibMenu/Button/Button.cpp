@@ -60,12 +60,16 @@ void Button::onRelease(sf::Vector2i mouse)
 		for (auto &elem : _toShow)
 			elem->setActivated(true);
 		for (auto &elem : _action)
-			elem();
-
+			elem(0);
 	} else {
 		_rects[0].top = 0;
 		_rects[0].left = 0;
 	}
+}
+
+void Button::onMove(sf::Vector2i mouse)
+{
+	(void)mouse;
 }
 
 void Button::draw(sf::RenderWindow &window)

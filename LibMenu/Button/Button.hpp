@@ -9,7 +9,6 @@
     #define BUTTON_HPP_
 
     #include <memory>
-
     #include "UI.hpp"
 
 class Button : public UI {
@@ -18,12 +17,11 @@ class Button : public UI {
 		const std::string &font = "Ressources/fonts/manaspc.ttf");
 		~Button() = default;
 
-		void draw(sf::RenderWindow &window);
 		void init(const int height, const int width, const std::string &texture, const std::string &font);
-
-		void onClick(sf::Vector2i);
-		void onRelease(sf::Vector2i);
-		void onMove(sf::Vector2i) {};
+		void onClick(sf::Vector2i mouse);
+		void onRelease(sf::Vector2i mouse);
+		void onMove(sf::Vector2i mouse);
+		void draw(sf::RenderWindow &window);
 
 		//setters
 		void setPosition(sf::Vector2f &position);

@@ -19,24 +19,23 @@ class Slider : public UI {
 
 		//will draw only if isActivated
 		void init(	int heightSlider, int widthSlider, const std::string &textureSlider, 
-				int heightButton, int widthButton, const std::string &textureButton,
-				const std::string &font, const int value);
+					int heightButton, int widthButton, const std::string &textureButton,
+					const std::string &font, const int value);
 
-		void onClick(sf::Vector2i);
-		void onRelease(sf::Vector2i);
-		void onMove(sf::Vector2i);
+		void onClick(sf::Vector2i mouse);
+		void onRelease(sf::Vector2i mouse);
+		void onMove(sf::Vector2i mouse);
 		void draw(sf::RenderWindow &window);
 
 		//setters
 		void setPosition(sf::Vector2f &position);
 		void setText(const std::string &text);
-		int getValue() const;
+		void setValue(int value);
+		void setMaxMinValues(int min, int max);
 
 		//getters
 		sf::Vector2f getPosition() const;
-		void setValue(int value);
-		void setMaxMinValues(int min, int max);
-		
+		int getValue() const;
 	private:
 		//value for the slider
 		int _value = 100;

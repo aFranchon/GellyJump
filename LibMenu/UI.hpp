@@ -13,7 +13,7 @@
 
 class UI {
 	public:
-		typedef void(*function_type)();
+		typedef void(*function_type)(int);
 
 		virtual void draw(sf::RenderWindow &window) = 0;
 		virtual void onClick(sf::Vector2i) = 0;

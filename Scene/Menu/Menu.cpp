@@ -41,7 +41,7 @@ void Menu::initMainMenu()
 	quitButton->setPosition(pos);
 	text = "Quit";
 	quitButton->setText(text);
-	void(*function_type)() = &Menu::quit;
+	void(*function_type)(int) = &quit;
 	quitButton->setAction(function_type);
 
 	_mainButtons.push_back(std::shared_ptr<UI>(quitButton));
@@ -81,6 +81,11 @@ void Menu::initOptionMenu()
 	_optionButtons.push_back(std::shared_ptr<UI>(backButton));
 }
 
+void Menu::quit(int i)
+{
+	exit(0);
+}
+
 void Menu::linkButtons()
 {
 	_mainButtons[1]->setHide(_mainButtons);
@@ -94,11 +99,6 @@ void Menu::linkButtons()
 
 	for (auto &elem : _optionButtons)
 		_buttons.push_back(elem);
-}
-
-void Menu::quit()
-{
-	exit(0);
 }
 
 void Menu::init(sf::RenderWindow &window)
