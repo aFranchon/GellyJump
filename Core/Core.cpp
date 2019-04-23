@@ -5,8 +5,6 @@
 ** Core
 */
 
-#include <iostream>
-
 #include "Core.hpp"
 
 void Core::createWindow()
@@ -34,7 +32,6 @@ void Core::run()
 	{
 		_window.clear();
 		handleEvent();
-		std::cout <<"ici " <<_isPlay <<std::endl;
 		if (!_isPlay)
 			_menu.refresh();
 		else

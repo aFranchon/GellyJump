@@ -8,21 +8,24 @@
 #ifndef PLAYER_HPP_
     #define PLAYER_HPP_
 
-    #include <SFML/Graphics/Texture.hpp>
-    #include <SFML/Graphics/Rect.hpp>
-    #include <SFML/Graphics/Sprite.hpp>
+    #include "Animator.hpp"
+    #include "SpriteRenderer.hpp"
 
 class Player {
 	public:
 		Player() = default;
 		~Player() = default;
 
+		void init();
+
 	protected:
 	private:
-		sf::Texture _playerTexture;
-		sf::IntRect _playerRect;
-		sf::Sprite _player;
+		Animator _animator;
+		SpriteRenderer _playerRenderer;
 
+		sf::Texture _animatorTexture;
+		sf::IntRect _animatorRect;
+		sf::Sprite _animator;
 };
 
 #endif /* !PLAYER_HPP_ */

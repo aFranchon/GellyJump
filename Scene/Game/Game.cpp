@@ -9,7 +9,7 @@
 
 void Game::handleEvent(sf::Event event)
 {
-	
+	//stop
 }
 
 void Game::init(sf::RenderWindow &window)
