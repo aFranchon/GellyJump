@@ -21,6 +21,9 @@ void Player::init(const int height, const int width, const std::string &texture)
 
 	_move.setSlowDown(1.005);
 	_jump.setSlowDown(1.01);
+	_physics.setWeight(1);
+	//temp
+	_physics.setFalling(true);
 }
 
 void Player::addStateAnimator(int numberOfChanges, int startOfState) {_animator.addState(numberOfChanges, startOfState);}
@@ -36,7 +39,7 @@ void Player::refresh()
 	float y = _playerSprite.getPosition().y;
 	_move.move(x);
 	_jump.jump(y);
-	//_physics.fall(y);
+	_physics.fall(y);
 	_playerSprite.setPosition(x, y);
 
 }
