@@ -19,7 +19,7 @@ SRC		=	Core/Core.cpp							\
 
 OBJ		=	$(SRC:.cpp=.o)
 
-INCLUDE	=	-I./Scene/Game/ -I./Scene/Menu -I./LibMenu/ -I./LibMenu/Button -I./LibMenu/Slider -I./Scene -I./Core -I./Scene/Game/GameUtils
+INCLUDE	=	-I./Scene/Game/ -I./Scene/Menu -I./LibMenu/ -I./LibMenu/Button -I./LibMenu/Slider -I./Scene -I./Core -I./Scene/Game/GameUtils -I./Movements
 
 LINK_FLAGS	=	-lsfml-graphics -lsfml-window -lsfml-system
 

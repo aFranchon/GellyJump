@@ -21,6 +21,8 @@ class Shoot {
 		
 		//getters
 		bool isActive() const;
+		float getTop() const;
+		float getLeft() const;
 		
 		//setters
 		void setStart(const sf::Vector2f &start);

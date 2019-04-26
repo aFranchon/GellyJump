@@ -21,6 +21,8 @@ void Shoot::draw(sf::RenderWindow &window)
 }
 
 bool Shoot::isActive() const {return _isActive;}
+float Shoot::getTop() const {return _end.y - _start.y;}
+float Shoot::getLeft() const {return _end.x - _start.x;}
 
 void Shoot::setStart(const sf::Vector2f &start) {_start = start;}
 void Shoot::setEnd(const sf::Vector2f &end) {_end = end;}
