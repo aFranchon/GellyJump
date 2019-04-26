@@ -14,9 +14,6 @@ class Move {
 		Move(const float &slowDown) : _slowDown(slowDown) {};
 		~Move() = default;
 
-		//Init method
-		void init(const float &slowDown);
-
 		//Getters
 		float getSpeed() const {return _speed;};
 
@@ -32,6 +29,7 @@ class Move {
 				return;
 			
 			position += _speed;
+			//trouver un truc pour que ça fonctionne
 			_speed /= _slowDown;
 		};
 
@@ -39,7 +37,7 @@ class Move {
 	protected:
 	private:
 		float _speed = 0;
-		std::size_t _slowDown = 1;
+		float _slowDown = 1;
 
 };
 

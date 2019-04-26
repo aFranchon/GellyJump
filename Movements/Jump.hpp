@@ -14,9 +14,6 @@ class Jump {
 		Jump(const float &slowDown) : _slowDown(slowDown) {};
 		~Jump() = default;
 
-		//Init method
-		void init(const float &slowDown);
-
 		//Getters
 		float getSpeed() const {return _speed;};
 
@@ -39,7 +36,7 @@ class Jump {
 	protected:
 	private:
 		float _speed = 0;
-		std::size_t _slowDown = 1;
+		float _slowDown = 1;
 };
 
 #endif /* !JUMP_HPP_ */

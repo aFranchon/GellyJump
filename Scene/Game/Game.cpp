@@ -22,7 +22,7 @@ void Game::handleEvent(sf::Event event)
 
 	if (event.type == sf::Event::MouseButtonReleased) {
 		_shoot.setActive(false);
-		_player.setMovements(_shoot.getLeft() / 500, _shoot.getTop() / 500);
+		_player.setMovements(_shoot.getLeft() / 250, _shoot.getTop() / 250);
 	}
 }
 

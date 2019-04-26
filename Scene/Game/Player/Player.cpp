@@ -18,6 +18,9 @@ void Player::init(const int height, const int width, const std::string &texture)
 	if (!_playerTexture.loadFromFile(texture))
 		throw;
 	_playerSprite.setTexture(_playerTexture);
+
+	_move.setSlowDown(1.005);
+	_jump.setSlowDown(1.01);
 }
 
 void Player::addStateAnimator(int numberOfChanges, int startOfState) {_animator.addState(numberOfChanges, startOfState);}
