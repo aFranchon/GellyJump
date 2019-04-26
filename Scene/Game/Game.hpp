@@ -10,7 +10,8 @@
 
 	#include <SFML/Graphics.hpp>
 
-	#include "Player/Player.hpp"
+	#include "Player/Player.hpp" 
+	#include "Player/Actions/Shoot.hpp"
 
 class Game {
 	public:
@@ -25,6 +26,7 @@ class Game {
 		sf::RenderWindow *_window;
 
 		Player _player;
+		Shoot _shoot;
 };
 
 #endif /* !GAME_HPP_ */

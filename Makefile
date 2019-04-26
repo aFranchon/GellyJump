@@ -7,13 +7,14 @@
 
 NAME	=	GellyJump
 
-SRC		=	Core/Core.cpp						\
-			LibMenu/Button/Button.cpp			\
-			LibMenu/Slider/Slider.cpp			\
-			Scene/Game/Player/Player.cpp		\
-			Scene/Game/Game.cpp					\
-			Scene/Menu/Menu.cpp					\
-			Scene/Game/GameUtils/Animator.cpp	\
+SRC		=	Core/Core.cpp							\
+			LibMenu/Button/Button.cpp				\
+			LibMenu/Slider/Slider.cpp				\
+			Scene/Game/Player/Player.cpp			\
+			Scene/Game/Player/Actions/Shoot.cpp	\
+			Scene/Game/Game.cpp						\
+			Scene/Menu/Menu.cpp						\
+			Scene/Game/GameUtils/Animator.cpp		\
 			Main.cpp
 
 OBJ		=	$(SRC:.cpp=.o)

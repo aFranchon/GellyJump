@@ -20,7 +20,10 @@ void Core::handleEvent()
 	while (_window.pollEvent(event)) {
 		if (event.type == sf::Event::EventType::Closed)
 			exit (0);
-		_menu.handleEvent(event);
+		if (!_isPlay)
+			_menu.handleEvent(event);
+		else
+			_game.handleEvent(event);
 	}
 }
 

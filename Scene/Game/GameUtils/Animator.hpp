@@ -11,13 +11,16 @@
     #include <SFML/Graphics/Texture.hpp>
     #include <SFML/Graphics/Rect.hpp>
     #include <SFML/Graphics/Sprite.hpp>
+    #include <ctime>
+
+    #include "Clock.hpp"
 
 class Animator {
 	public:
 		Animator() = default;
 		~Animator() = default;
 
-		void init(int width, int height, float animTime, int row = 1, int col = 1, int currentState = 0);
+		void init(int height, int width, float animTime, int row = 1, int col = 1, int currentState = 0);
 		void addState(int numberOfChanges, int startOfState);
 
 		void refresh(sf::IntRect &rect);
@@ -36,6 +39,8 @@ class Animator {
 		int _height;
 		float _animTime;
 		int _currentState;
+
+		Clock<> _clock;
 
 		int _currentChange = 0;
 

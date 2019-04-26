@@ -31,3 +31,8 @@ void Player::refresh()
 }
 
 void Player::draw(sf::RenderWindow &window) {_playerRenderer.draw(window, _playerSprite);}
+
+sf::Vector2f Player::getPosition() const {return _playerSprite.getPosition();}
+
+void Player::setPosition(const sf::Vector2f &pos) {_playerSprite.setPosition(pos);}
+void Player::setPosition(const float &x, const float &y) {_playerSprite.setPosition(x, y);}

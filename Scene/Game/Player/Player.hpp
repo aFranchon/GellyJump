@@ -23,6 +23,13 @@ class Player {
 		void refresh();
 		void draw(sf::RenderWindow &window);
 
+		//getters
+		sf::Vector2f getPosition() const;
+
+		//setters
+		void setPosition(const sf::Vector2f &pos);
+		void setPosition(const float &x, const float &y);
+
 	protected:
 	private:
 		Animator _animator;

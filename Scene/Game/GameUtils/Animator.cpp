@@ -10,7 +10,7 @@
 
 #include "Animator.hpp"
 
-void Animator::init(int width, int height, float animTime, int row, int col, int currentState)
+void Animator::init(int height, int width, float animTime, int row, int col, int currentState)
 {
 	_width = width;
 	_height = height;
@@ -24,8 +24,11 @@ void Animator::refresh(sf::IntRect &rect)
 {
 	std::pair<int, int> currentState = _animState[_currentState];
 
+	if (_clock.getSeconds() <= _animTime)
+		return;
 	rect.top = 0;
 	rect.left = 0;
+	_clock.reset();
 	_currentChange++;
 	if (_currentChange >= currentState.first) {
 		_currentChange = 0;
