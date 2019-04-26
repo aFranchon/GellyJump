@@ -16,16 +16,21 @@ class Player {
 		Player() = default;
 		~Player() = default;
 
-		void init();
+		void init(const int height, const int width, const std::string &texture);
+		void initAnimator(int width, int height, float animTime, int row = 1, int col = 1, int currentState = 0);
+		void addStateAnimator(int numberOfChanges, int startOfState);
+
+		void refresh();
+		void draw(sf::RenderWindow &window);
 
 	protected:
 	private:
 		Animator _animator;
 		SpriteRenderer _playerRenderer;
 
-		sf::Texture _animatorTexture;
-		sf::IntRect _animatorRect;
-		sf::Sprite _animator;
+		sf::Texture _playerTexture;
+		sf::IntRect _playerRect;
+		sf::Sprite _playerSprite;
 };
 
 #endif /* !PLAYER_HPP_ */

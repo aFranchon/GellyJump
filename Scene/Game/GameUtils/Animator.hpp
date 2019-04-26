@@ -17,7 +17,7 @@ class Animator {
 		Animator() = default;
 		~Animator() = default;
 
-		void init(int width, int height, float animTime, int currentState = 0, int row = 1, int col = 1);
+		void init(int width, int height, float animTime, int row = 1, int col = 1, int currentState = 0);
 		void addState(int numberOfChanges, int startOfState);
 
 		void refresh(sf::IntRect &rect);
@@ -41,7 +41,7 @@ class Animator {
 
 		int _row;
 		int _col;
-		bool _isVert = true;
+		bool _isVert = false;
 };
 
 #endif /* !ANIMATOR_HPP_ */

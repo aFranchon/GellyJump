@@ -13,10 +13,10 @@
 
 class SpriteRenderer {
 	public:
-		SpriteRenderer();
-		~SpriteRenderer();
+		SpriteRenderer() = default;
+		~SpriteRenderer() = default;
 
-		void draw(sf::RenderWindow &window, sf::Sprite &sprite) 
+		void draw(sf::RenderWindow &window, sf::Sprite &sprite)
 		{
 			if (_isDisplay)
 				window.draw(sprite);
