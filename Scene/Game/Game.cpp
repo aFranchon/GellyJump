@@ -33,11 +33,14 @@ void Game::init(sf::RenderWindow &window)
 	_player.initAnimator(50, 46, 0.5, 2, 5);
 	_player.addStateAnimator(10, 0);
 	_player.setPosition(_window->getSize().x / 2, _window->getSize().y / 2);
+	_wall.init(1000, 50, "Ressources/game/wall.png");
+	_wall.setPosition(500, 500);
 }
 
 void Game::refresh()
 {
 	_player.refresh();
-	_shoot.draw(*_window);
+	_wall.draw(*_window);
 	_player.draw(*_window);
+	_shoot.draw(*_window);
 }

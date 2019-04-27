@@ -13,6 +13,8 @@
 	#include "Player/Player.hpp" 
 	#include "Player/Actions/Shoot.hpp"
 
+	#include "Environnement/Wall.hpp"
+
 class Game {
 	public:
 		Game() = default;
@@ -27,6 +29,8 @@ class Game {
 
 		Player _player;
 		Shoot _shoot;
+
+		Wall _wall;//will be a vector of walls
 };
 
 #endif /* !GAME_HPP_ */

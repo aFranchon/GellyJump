@@ -11,7 +11,8 @@ SRC		=	Core/Core.cpp							\
 			LibMenu/Button/Button.cpp				\
 			LibMenu/Slider/Slider.cpp				\
 			Scene/Game/Player/Player.cpp			\
-			Scene/Game/Player/Actions/Shoot.cpp	\
+			Scene/Game/Player/Actions/Shoot.cpp		\
+			Scene/Game/Environnement/Wall.cpp		\
 			Scene/Game/Game.cpp						\
 			Scene/Menu/Menu.cpp						\
 			Scene/Game/GameUtils/Animator.cpp		\
@@ -19,7 +20,7 @@ SRC		=	Core/Core.cpp							\
 
 OBJ		=	$(SRC:.cpp=.o)
 
-INCLUDE	=	-I./Scene/Game/ -I./Scene/Menu -I./LibMenu/ -I./LibMenu/Button -I./LibMenu/Slider -I./Scene -I./Core -I./Scene/Game/GameUtils -I./Movements
+INCLUDE	=	-I./Scene/Game/ -I./Scene/Menu -I./LibMenu/ -I./LibMenu/Button -I./LibMenu/Slider -I./Scene -I./Core -I./Scene/Game/GameUtils -I./Movements -I./Scene/Game/Environnement
 
 LINK_FLAGS	=	-lsfml-graphics -lsfml-window -lsfml-system
 
