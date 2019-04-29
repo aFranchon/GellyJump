@@ -29,18 +29,27 @@ void Game::handleEvent(sf::Event event)
 void Game::init(sf::RenderWindow &window)
 {
 	_window = &window;
+
 	_player.init(50, 46, "Ressources/game/player.png");
 	_player.initAnimator(50, 46, 0.5, 2, 5);
 	_player.addStateAnimator(10, 0);
 	_player.setPosition(_window->getSize().x / 2, _window->getSize().y / 2);
-	_wall.init(1000, 50, "Ressources/game/wall.png");
-	_wall.setPosition(500, 500);
+
+	Wall *wall = new Wall;
+	wall->init(1000, 50, "Ressources/game/wall.png");
+	wall->addPosition(500, 500);
+	_environement.push_back(std::shared_ptr<Wall>(wall));
 }
 
 void Game::refresh()
 {
-	_player.refresh();
-	_wall.draw(*_window);
+	_player.refresh(_environement);
+	for (auto &elem : _environement) {
+		for (int i = 0; i < elem->getPositions().size(); i++) {
+			elem->setPosition(i);
+			elem->draw(*_window);
+		}
+	}
 	_player.draw(*_window);
 	_shoot.draw(*_window);
 }

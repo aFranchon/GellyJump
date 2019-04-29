@@ -32,6 +32,20 @@ class Jump {
 			_speed /= _slowDown;
 		};
 
+		float getNext(const float &position) {
+			float ret = position;
+			if (_speed <= 0.001 && _speed >= -0.001)
+				return ret;
+			
+			ret += _speed;
+			return ret;
+		};
+
+		void hit() {
+			_speed *= -1;
+			for (int i = 0; i < 3; i++)
+				_speed /= _slowDown;
+		}
 
 	protected:
 	private:

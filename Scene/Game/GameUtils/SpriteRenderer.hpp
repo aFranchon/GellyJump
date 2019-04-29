@@ -18,19 +18,19 @@ class SpriteRenderer {
 
 		void draw(sf::RenderWindow &window, sf::Sprite &sprite)
 		{
-			if (_isDisplay)
+			if (_isActive)
 				window.draw(sprite);
 		}
 
 		//setters
-		bool isDisplay() const {return _isDisplay;};
+		bool isActive() const {return _isActive;};
 
 		//getters
-		void setDisplay(bool isDisplay) {_isDisplay = isDisplay;};
+		void setActive(bool isDisplay) {_isActive = isDisplay;};
 
 	protected:
 	private:
-		bool _isDisplay = true;
+		bool _isActive = true;
 };
 
 #endif /* !SPRITERENDERER_HPP_ */

@@ -9,8 +9,9 @@
     #define WALL_HPP_
 
     #include "SpriteRenderer.hpp"
+    #include "IEnvironement.hpp"
 
-class Wall {
+class Wall : public IEnvironement {
 	public:
 		Wall() = default;
 		Wall(const int &height, const int &width, const std::string &texture) {init(height, width, texture);};
@@ -21,11 +22,16 @@ class Wall {
 		void draw(sf::RenderWindow &window);
 
 		//setters
-		void setPosition(const sf::Vector2f &pos);
-		void setPosition(const float &x, const float &y);
+		void addPosition(const sf::Vector2f &pos);
+		void addPosition(const float &x, const float &y);
+		void setPosition(const int &i);
+		void setDisplay(const bool &isDisplay);
+		void setActive(const bool &active);
 
 		//getters
-		const sf::Sprite getSprite() const;
+		sf::Sprite getSprite() const;
+		const bool isActive() const;
+		const std::vector<sf::Vector2f> &getPositions() const;
 
 	protected:
 	private:
@@ -34,6 +40,7 @@ class Wall {
 		sf::Texture _wallTexture;
 		sf::IntRect _wallRect;
 		sf::Sprite _wallSprite;
+		std::vector<sf::Vector2f> _positions;
 };
 
 #endif /* !WALL_HPP_ */

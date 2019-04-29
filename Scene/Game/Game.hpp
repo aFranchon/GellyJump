@@ -8,6 +8,8 @@
 #ifndef GAME_HPP_
     #define GAME_HPP_
 
+	#include <memory>
+
 	#include <SFML/Graphics.hpp>
 
 	#include "Player/Player.hpp" 
@@ -30,7 +32,7 @@ class Game {
 		Player _player;
 		Shoot _shoot;
 
-		Wall _wall;//will be a vector of walls
+		std::vector<std::shared_ptr<IEnvironement>> _environement;//will be a vector of walls
 };
 
 #endif /* !GAME_HPP_ */

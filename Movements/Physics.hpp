@@ -22,10 +22,24 @@ class Physics {
 
 		void fall(float &position)
 		{
+			//faire en sorte que ça augmente (à l'inverse de move/jump)
 			if (!_isFalling)
 				return;
 			
 			position += _weight;
+		}
+
+		float getNext(const float &position) {
+			float ret = position;
+			if (!_isFalling)
+				return ret;
+			
+			ret += _weight;
+			return ret;
+		};
+
+		void hit() {
+			//reset augmentation
 		}
 
 	protected:

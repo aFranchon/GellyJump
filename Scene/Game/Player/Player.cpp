@@ -30,26 +30,48 @@ void Player::addStateAnimator(int numberOfChanges, int startOfState) {_animator.
 void Player::initAnimator(int width, int height, float animTime, int row, int col, int currentState) 
 {_animator.init(width, height, animTime, row, col, currentState);}
 
-void Player::refresh()
+void Player::refresh(const std::vector<std::shared_ptr<IEnvironement>> &environements)
 {
 	_animator.refresh(_playerRect);
 	_playerSprite.setTextureRect(_playerRect);
 
-	float x = _playerSprite.getPosition().x;
-	float y = _playerSprite.getPosition().y;
-	_move.move(x);
-	_jump.jump(y);
-	_physics.fall(y);
-	_playerSprite.setPosition(x, y);
+	sf::Vector2f pos = _playerSprite.getPosition();
+	if (checkCollision(environements, sf::Vector2f(_move.getNext(pos.x), pos.y)))
+		_move.hit();
+	_move.move(pos.x);
+	if (checkCollision(environements, sf::Vector2f(pos.x, _jump.getNext(pos.y))))
+		_jump.hit();
+	_jump.jump(pos.y);
+	if (checkCollision(environements, sf::Vector2f(pos.x, _physics.getNext(pos.y))))
+		_physics.hit();
+	else
+		_physics.fall(pos.y);
+	_playerSprite.setPosition(pos);
+}
 
+bool Player::checkCollision(const std::vector<std::shared_ptr<IEnvironement>> &environements, const sf::Vector2f &pos)
+{
+	sf::Vector2f temp = _playerSprite.getPosition();
+
+	_playerSprite.setPosition(pos);
+	for (auto &elem : environements) {
+		for (int i = 0; i < elem->getPositions().size(); i++) {
+			elem->setPosition(i);
+			if (_playerSprite.getGlobalBounds().intersects(elem->getSprite().getGlobalBounds()))
+				return true;
+		}
+	}
+	return false;
 }
 
 void Player::draw(sf::RenderWindow &window) {_playerRenderer.draw(window, _playerSprite);}
 
-sf::Vector2f Player::getPosition() const {return _playerSprite.getPosition();}
+const sf::Vector2f Player::getPosition() const {return _playerSprite.getPosition();}
+const bool Player::isActive() const {return _playerRenderer.isActive();}
 
 void Player::setPosition(const sf::Vector2f &pos) {_playerSprite.setPosition(pos);}
 void Player::setPosition(const float &x, const float &y) {_playerSprite.setPosition(x, y);}
+void Player::setActive(const bool &active) {_playerRenderer.setActive(active);}
 
 void Player::setMovements(const float &x, const float &y)
 {

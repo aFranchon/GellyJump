@@ -21,7 +21,11 @@ void Wall::init(const int &height, const int &width, const std::string &texture)
 
 void Wall::draw(sf::RenderWindow &window) {_wallRenderer.draw(window, _wallSprite);}
 
-void Wall::setPosition(const sf::Vector2f &pos) {_wallSprite.setPosition(pos);}
-void Wall::setPosition(const float &x, const float &y) {_wallSprite.setPosition(x, y);}
+void Wall::addPosition(const sf::Vector2f &pos) {_positions.push_back(pos);}
+void Wall::addPosition(const float &x, const float &y) {_positions.push_back(sf::Vector2f(x, y));}
+void Wall::setPosition(const int &i) {_wallSprite.setPosition(_positions[i]);}
+void Wall::setActive(const bool &active) {_wallRenderer.setActive(active);}
 
-const sf::Sprite Wall::getSprite() const {return _wallSprite;}
+sf::Sprite Wall::getSprite() const {return _wallSprite;}
+const bool Wall::isActive() const {return _wallRenderer.isActive();}
+const std::vector<sf::Vector2f> &Wall::getPositions() const {return _positions;}
