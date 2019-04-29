@@ -24,16 +24,6 @@ class Menu : public IScene{
 		void handleEvent(const sf::Event event);
 		void refresh();
 
-		static int quit();
-		static int fps();
-		static int volume();
-		static int play();
-
-		void doNothing(int nothing);
-		void setFPS(int fps);
-		void setVolume(int volume);
-		void playGame(int i);
-
 	private:
 		void initMainMenu();
 		void initOptionMenu();
@@ -44,7 +34,6 @@ class Menu : public IScene{
 		std::vector<std::shared_ptr<UI>> _buttons;
 		std::vector<std::shared_ptr<UI>> _mainButtons;
 		std::vector<std::shared_ptr<UI>> _optionButtons;
-		std::vector<std::function<void(Menu&, int)>> _tab;
 };
 
 #endif /* !MENU_HPP_ */

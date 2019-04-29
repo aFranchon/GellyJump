@@ -88,7 +88,7 @@ int Slider::onRelease(sf::Vector2i mouse)
 		for (auto &elem : _toShow)
 			elem->setActivated(true);
 		for (auto &elem : _action)
-			return elem();
+			elem(_value);
 	} else {
 		_rects[0].top = 0;
 		_rects[0].left = 0;

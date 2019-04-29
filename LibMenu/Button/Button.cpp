@@ -60,7 +60,7 @@ int Button::onRelease(sf::Vector2i mouse)
 		for (auto &elem : _toShow)
 			elem->setActivated(true);
 		for (auto &elem : _action) {
-			return elem();
+			elem(0);
 		}
 	} else {
 		_rects[0].top = 0;

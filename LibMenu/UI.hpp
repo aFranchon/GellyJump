@@ -25,7 +25,7 @@ class UI {
 		bool isActivated() const {return _isActivated;};
 
 		//methods to add actions to an UI element
-		void setAction(function_type &action) {_action.push_back(action);};
+		void setAction(std::function<void(int value)> &action) {_action.push_back(action);};
 
 		void setHide(std::shared_ptr<UI> button) {_toHide.push_back(button);}
 		void setHide(std::vector<std::shared_ptr<UI>> buttons) 
@@ -45,7 +45,7 @@ class UI {
 
 		protected:
 			//actions to be called when released
-			std::vector<function_type> _action;
+			std::vector<std::function<void(int value)>> _action;
 
 			//Buttons to hide
 			std::vector<std::shared_ptr<UI>> _toHide;
