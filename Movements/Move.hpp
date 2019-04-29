@@ -16,9 +16,14 @@ class Move {
 
 		//Getters
 		float getSpeed() const {return _speed;};
+		const bool &getJustSet() const {return _justSet;}
 
 		//Setters
-		void setSpeed(const float speed) {_speed += speed;};
+		void setSpeed(const float speed) 
+		{
+			_speed += speed;
+			_justSet = true;
+		};
 		void setSlowDown(const float slowDown) {_slowDown = slowDown;};
 
 		//move method
@@ -30,6 +35,7 @@ class Move {
 			
 			position += _speed;
 			_speed /= _slowDown;
+			_justSet = false;
 		};
 
 		float getNext(const float &position) {
@@ -43,14 +49,14 @@ class Move {
 
 		void hit() {
 			_speed *= -1;
-			for (int i = 0; i < 3; i++)
-				_speed /= _slowDown;
+			_speed /= _slowDown * 5;
 		}
 
 	protected:
 	private:
 		float _speed = 0;
 		float _slowDown = 1;
+		bool _justSet = false;
 
 };
 

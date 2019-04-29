@@ -17,6 +17,7 @@ void Wall::init(const int &height, const int &width, const std::string &texture)
 	if (!_wallTexture.loadFromFile(texture))
 		throw;
 	_wallSprite.setTexture(_wallTexture);
+	_tag = "Wall";
 }
 
 void Wall::draw(sf::RenderWindow &window) {_wallRenderer.draw(window, _wallSprite);}

@@ -22,6 +22,7 @@ void Player::init(const int height, const int width, const std::string &texture)
 	_move.setSlowDown(1.005);
 	_jump.setSlowDown(1.01);
 	_physics.setWeight(1);
+	_physics.setFallingIncrease(1.1);
 	//temp
 	_physics.setFalling(true);
 }
@@ -36,16 +37,16 @@ void Player::refresh(const std::vector<std::shared_ptr<IEnvironement>> &environe
 	_playerSprite.setTextureRect(_playerRect);
 
 	sf::Vector2f pos = _playerSprite.getPosition();
-	if (checkCollision(environements, sf::Vector2f(_move.getNext(pos.x), pos.y)))
+	if (!_move.getJustSet() && checkCollision(environements, sf::Vector2f(_move.getNext(pos.x), pos.y)))
 		_move.hit();
 	_move.move(pos.x);
 	if (checkCollision(environements, sf::Vector2f(pos.x, _jump.getNext(pos.y))))
 		_jump.hit();
-	_jump.jump(pos.y);
-	if (checkCollision(environements, sf::Vector2f(pos.x, _physics.getNext(pos.y))))
+	else if (checkCollision(environements, sf::Vector2f(pos.x, _physics.getNext(pos.y))))
 		_physics.hit();
 	else
 		_physics.fall(pos.y);
+	_jump.jump(pos.y);
 	_playerSprite.setPosition(pos);
 }
 
@@ -57,7 +58,7 @@ bool Player::checkCollision(const std::vector<std::shared_ptr<IEnvironement>> &e
 	for (auto &elem : environements) {
 		for (int i = 0; i < elem->getPositions().size(); i++) {
 			elem->setPosition(i);
-			if (_playerSprite.getGlobalBounds().intersects(elem->getSprite().getGlobalBounds()))
+			if (elem->getTag() == "Wall" && _playerSprite.getGlobalBounds().intersects(elem->getSprite().getGlobalBounds()))
 				return true;
 		}
 	}

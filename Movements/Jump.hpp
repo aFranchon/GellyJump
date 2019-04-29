@@ -8,6 +8,8 @@
 #ifndef JUMP_HPP_
     #define JUMP_HPP_
 
+    #include <iostream>
+
 class Jump {
 	public:
 		Jump() = default;
@@ -43,8 +45,10 @@ class Jump {
 
 		void hit() {
 			_speed *= -1;
-			for (int i = 0; i < 3; i++)
-				_speed /= _slowDown;
+			if (_speed > 0)
+				_speed /= _slowDown * 1000;
+			else
+				_speed /= _slowDown * 3;
 		}
 
 	protected:
