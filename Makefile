@@ -16,6 +16,7 @@ SRC		=	Core/Core.cpp							\
 			Scene/Game/Game.cpp						\
 			Scene/Menu/Menu.cpp						\
 			Scene/Game/GameUtils/Animator.cpp		\
+			Scene/Game/GameUtils/MapLoader.cpp		\
 			Main.cpp
 
 OBJ		=	$(SRC:.cpp=.o)

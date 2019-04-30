@@ -24,6 +24,7 @@ class Wall : public IEnvironement {
 
 		//setters
 		void addPosition(const sf::Vector2f &pos);
+		void addPosition(const std::vector<sf::Vector2f> &pos);
 		void addPosition(const float &x, const float &y);
 		void setPosition(const int &i);
 		void setDisplay(const bool &isDisplay);

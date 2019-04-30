@@ -7,6 +7,7 @@
 
 #include <iostream>
 
+#include "MapLoader.hpp"
 #include "Game.hpp"
 
 void Game::handleEvent(sf::Event event)
@@ -34,35 +35,19 @@ void Game::handleEvent(sf::Event event)
 void Game::init(sf::RenderWindow &window)
 {
 	_window = &window;
+	MapLoader loader;
+	loader.loadFile("Ressources/maps/map1.txt");
 
 	_player.init(50, 46, "Ressources/game/player.png");
 	_player.initAnimator(50, 46, 0.5, 2, 5);
 	_player.addStateAnimator(10, 0);
-	_player.setPosition(_window->getSize().x / 2, _window->getSize().y / 2);
+	_player.setPosition(loader.getPosByChar('P', 50)[0]);
 
-	Wall *wallHor = new Wall;
-	wallHor->init(1000, 50, "Ressources/game/wall.png");
+	Wall *walls = new Wall;
+	walls->init(50, 50, "Ressources/game/wall.png");
 
-	for (int i = -10000; i < 10000; i += 1000) {
-		wallHor->addPosition(i, -10000);
-		wallHor->addPosition(i, 10000);
-	}
-	wallHor->addPosition(0, -1000);
-	wallHor->addPosition(-1000, 0);
-	wallHor->addPosition(50, 50);
-	wallHor->addPosition(1000, 500);
-	wallHor->addPosition(500, 1000);
-
-	_environement.push_back(std::shared_ptr<Wall>(wallHor));
-
-	Wall *wallVert = new Wall;
-	wallVert->init(1000, 50, "Ressources/game/wall.png");
-	wallVert->rotate(90);
-	for (int i = -10000; i < 10000; i += 1000) {
-		wallVert->addPosition(-10000, i);
-		wallVert->addPosition(10000, i);
-	}
-	_environement.push_back(std::shared_ptr<Wall>(wallVert));
+	walls->addPosition(loader.getPosByChar('X', 50));
+	_environement.push_back(std::shared_ptr<Wall>(walls));
 }
 
 void Game::refresh()
