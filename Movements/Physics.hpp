@@ -17,6 +17,8 @@ class Physics {
 
 		//getters
 		bool isFalling() const {return _isFalling;};
+		void reset() {_increase = 0;};
+		float getIncrease() const {return _jump;};
 
 		//setters
 		void setFalling(const bool &isFalling) {_isFalling = isFalling;};
@@ -25,12 +27,11 @@ class Physics {
 
 		void fall(float &position)
 		{
-			//faire en sorte que ça augmente (à l'inverse de move/jump)
 			if (!_isFalling)
 				return;
 			
-			if (_increase < 1)
-				_increase += 0.01;
+			if (_increase < 5)
+				_increase += 0.005;
 
 			position += _weight * (_fallingIncrease * _increase);
 		}
@@ -40,19 +41,19 @@ class Physics {
 			if (!_isFalling)
 				return ret;
 			
-			if (_increase < 1)
-				_increase += 0.01;
+			if (_increase < 5)
+				_increase += 0.005;
 
 			ret += _weight * (_fallingIncrease * _increase);
 			return ret;
 		};
 
 		void hit() {
-			if (_increase > 0.1)
-				_increase -= 0.4;
+			if (_increase > 1)
+				_jump = _increase - 1;
 			else
-				_increase = 0;
-			_increase *= -1;
+				_jump = 0;
+			_increase = 0;
 		}
 
 	protected:
@@ -62,6 +63,7 @@ class Physics {
 		float _weight;
 		float _fallingIncrease;
 		float _increase = 0;
+		float _jump = 0;
 };
 
 #endif /* !PHYSICS_HPP_ */

@@ -46,7 +46,7 @@ class Jump {
 		void hit() {
 			_speed *= -1;
 			if (_speed > 0)
-				_speed /= _slowDown * 1000;
+				_speed /= _slowDown * 800;
 			else
 				_speed /= _slowDown * 3;
 		}

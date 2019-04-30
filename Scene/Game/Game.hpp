@@ -28,6 +28,7 @@ class Game {
 
 	private:
 		sf::RenderWindow *_window;
+		sf::View _view;
 
 		Player _player;
 		Shoot _shoot;

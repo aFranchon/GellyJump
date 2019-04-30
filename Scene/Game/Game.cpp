@@ -13,11 +13,13 @@ void Game::handleEvent(sf::Event event)
 {
 	if (event.type == sf::Event::MouseButtonPressed && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		_shoot.setActive(true);
-		_shoot.setStart(static_cast<sf::Vector2f>(sf::Mouse::getPosition(*_window)));
+		_shoot.setStart(static_cast<sf::Vector2f>(sf::Mouse::getPosition(*_window)),
+		sf::Vector2f(_view.getCenter().x - _window->getSize().x / 2, _view.getCenter().y  - _window->getSize().y / 2));
 	}
 
 	if (event.type == sf::Event::MouseMoved) {
-		_shoot.setEnd(static_cast<sf::Vector2f>(sf::Mouse::getPosition(*_window)));
+		_shoot.setEnd(static_cast<sf::Vector2f>(sf::Mouse::getPosition(*_window)),
+		sf::Vector2f(_view.getCenter().x - _window->getSize().x / 2, _view.getCenter().y  - _window->getSize().y / 2));
 	}
 
 	if (event.type == sf::Event::MouseButtonReleased) {
@@ -29,6 +31,7 @@ void Game::handleEvent(sf::Event event)
 void Game::init(sf::RenderWindow &window)
 {
 	_window = &window;
+	_view = _window->getView();
 
 	_player.init(50, 46, "Ressources/game/player.png");
 	_player.initAnimator(50, 46, 0.5, 2, 5);
@@ -38,12 +41,18 @@ void Game::init(sf::RenderWindow &window)
 	Wall *wall = new Wall;
 	wall->init(1000, 50, "Ressources/game/wall.png");
 	wall->addPosition(500, 500);
+	wall->addPosition(0, 0);
+	wall->addPosition(50, 50);
+	wall->addPosition(1000, 500);
+	wall->addPosition(500, 1000);
 	_environement.push_back(std::shared_ptr<Wall>(wall));
 }
 
 void Game::refresh()
 {
 	_player.refresh(_environement);
+	_view.setCenter(_player.getPosition());
+	_window->setView(_view);
 	for (auto &elem : _environement) {
 		for (int i = 0; i < elem->getPositions().size(); i++) {
 			elem->setPosition(i);

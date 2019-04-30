@@ -22,7 +22,7 @@ void Player::init(const int height, const int width, const std::string &texture)
 	_move.setSlowDown(1.005);
 	_jump.setSlowDown(1.01);
 	_physics.setWeight(1);
-	_physics.setFallingIncrease(1.1);
+	_physics.setFallingIncrease(1);
 	//temp
 	_physics.setFalling(true);
 }
@@ -42,10 +42,11 @@ void Player::refresh(const std::vector<std::shared_ptr<IEnvironement>> &environe
 	_move.move(pos.x);
 	if (checkCollision(environements, sf::Vector2f(pos.x, _jump.getNext(pos.y))))
 		_jump.hit();
-	else if (checkCollision(environements, sf::Vector2f(pos.x, _physics.getNext(pos.y))))
+	if (checkCollision(environements, sf::Vector2f(pos.x, _physics.getNext(pos.y)))) {
 		_physics.hit();
-	else
-		_physics.fall(pos.y);
+		_jump.setSpeed(_physics.getIncrease() * -1);
+	}
+	_physics.fall(pos.y);
 	_jump.jump(pos.y);
 	_playerSprite.setPosition(pos);
 }
@@ -78,4 +79,5 @@ void Player::setMovements(const float &x, const float &y)
 {
 	_move.setSpeed(x);
 	_jump.setSpeed(y);
+	_physics.reset();
 }

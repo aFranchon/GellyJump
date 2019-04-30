@@ -49,7 +49,7 @@ class Move {
 
 		void hit() {
 			_speed *= -1;
-			_speed /= _slowDown * 5;
+			_speed /= _slowDown * 3;
 		}
 
 	protected:
