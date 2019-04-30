@@ -23,6 +23,10 @@ class Menu : public IScene{
 		void init(sf::RenderWindow &window, bool &isPlay);
 		void handleEvent(const sf::Event event);
 		void refresh();
+		void setChangeScene(const std::function<void()> &func);
+
+		void activate();
+		void desactivate();
 
 	private:
 		void initMainMenu();
@@ -31,6 +35,7 @@ class Menu : public IScene{
 
 		sf::RenderWindow * _window;
 		bool *isPlay;
+		std::function<void()> _changeScene;
 		std::vector<std::shared_ptr<UI>> _buttons;
 		std::vector<std::shared_ptr<UI>> _mainButtons;
 		std::vector<std::shared_ptr<UI>> _optionButtons;

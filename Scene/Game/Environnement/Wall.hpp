@@ -20,6 +20,7 @@ class Wall : public IEnvironement {
 		void init(const int &height, const int &width, const std::string &texture);
 
 		void draw(sf::RenderWindow &window);
+		void rotate(int rotation);
 
 		//setters
 		void addPosition(const sf::Vector2f &pos);

@@ -12,12 +12,14 @@
 
 	#include <SFML/Graphics.hpp>
 
+	#include "Scene.hpp"
+
 	#include "Player/Player.hpp" 
 	#include "Player/Actions/Shoot.hpp"
 
 	#include "Environnement/Wall.hpp"
 
-class Game {
+class Game : public IScene{
 	public:
 		Game() = default;
 		~Game() = default;
@@ -26,12 +28,18 @@ class Game {
 		void refresh();
 		void handleEvent(const sf::Event event);
 
+		void activate();
+		void desactivate();
+
+		void setChangeScene(const std::function<void()> &func);
+
 	private:
 		sf::RenderWindow *_window;
-		sf::View _view;
 
 		Player _player;
 		Shoot _shoot;
+
+		std::function<void()> _loadMenu;
 
 		std::vector<std::shared_ptr<IEnvironement>> _environement;//will be a vector of walls
 };

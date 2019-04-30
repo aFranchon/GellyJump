@@ -21,6 +21,7 @@ void Wall::init(const int &height, const int &width, const std::string &texture)
 }
 
 void Wall::draw(sf::RenderWindow &window) {_wallRenderer.draw(window, _wallSprite);}
+void Wall::rotate(int rotation) {_wallSprite.setRotation(rotation);}
 
 void Wall::addPosition(const sf::Vector2f &pos) {_positions.push_back(pos);}
 void Wall::addPosition(const float &x, const float &y) {_positions.push_back(sf::Vector2f(x, y));}

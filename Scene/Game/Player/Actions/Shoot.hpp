@@ -25,8 +25,8 @@ class Shoot {
 		float getLeft() const;
 		
 		//setters
-		void setStart(const sf::Vector2f &start, const sf::Vector2f &view = sf::Vector2f(0, 0));
-		void setEnd(const sf::Vector2f &end, const sf::Vector2f &view = sf::Vector2f(0, 0));
+		void setStart(const sf::Vector2f &start);
+		void setEnd(const sf::Vector2f &end);
 		void setActive(bool active);
 
 	protected:

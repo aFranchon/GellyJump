@@ -21,7 +21,7 @@ void Menu::initMainMenu()
 	playButton->setPosition(pos);
 	std::string text = "Play";
 	playButton->setText(text);
-	std::function<void(int value)> playAction = [&](int value) {*isPlay = true;};
+	std::function<void(int value)> playAction = [&](int value) {_changeScene();};
 	playButton->setAction(playAction);
 
 	_mainButtons.push_back(std::shared_ptr<UI>(playButton));
@@ -114,6 +114,9 @@ void Menu::init(sf::RenderWindow &window, bool &isPlay)
 
 void Menu::handleEvent(const sf::Event event)
 {
+	if (event.type == sf::Event::KeyPressed)
+			if (event.key.code == sf::Keyboard::Escape)
+				exit(0);
 	if (event.type == sf::Event::MouseButtonPressed && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		for (auto &elem : _buttons)
 			if (elem->isActivated())
@@ -141,3 +144,20 @@ void Menu::refresh()
 	for (auto &elem : _buttons)
 		elem->draw(*_window);
 }
+
+void Menu::activate()
+{
+	_isActive = true;
+
+	sf::View view = _window->getView();
+	view.zoom(0.5);
+	view.setCenter(_window->getSize().x / 2, _window->getSize().y / 2);
+	_window->setView(view);
+}
+
+void Menu::desactivate()
+{
+	_isActive = false;
+}
+
+void Menu::setChangeScene(const std::function<void ()> &func) {_changeScene = func;}

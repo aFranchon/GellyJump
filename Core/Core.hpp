@@ -20,14 +20,16 @@ class Core {
 		void run();
 		void createWindow();
 
+		void loadGame();
+		void loadMenu();
+
 	protected:
 	private:
 		void handleEvent();
 
 		bool _isPlay = false;
 
-		Game _game;
-		Menu _menu;
+		std::vector<std::shared_ptr<IScene>> _scenes;
 
 		sf::RenderWindow _window;
 };
