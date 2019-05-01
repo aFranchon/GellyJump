@@ -9,14 +9,14 @@
 
 void Wall::init(const int &width, const int &height, const std::string &texture)
 {
-	_wallRect.top = 0;
-	_wallRect.left = 0;
-	_wallRect.height = height;
-	_wallRect.width = width;
+	_envRect.top = 0;
+	_envRect.left = 0;
+	_envRect.height = height;
+	_envRect.width = width;
 
-	if (!_wallTexture.loadFromFile(texture))
+	if (!_envTexture.loadFromFile(texture))
 		throw;
-	_wallSprite.setTexture(_wallTexture);
-	_wallSprite.setTextureRect(_wallRect);
+	_envSprite.setTexture(_envTexture);
+	_envSprite.setTextureRect(_envRect);
 	_tag = "Wall";
 }

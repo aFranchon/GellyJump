@@ -19,6 +19,7 @@
 	#include "Shoot.hpp"
 
 	#include "Wall.hpp"
+	#include "EndLevelTrigger.hpp"
 
 class Game : public IScene{
 	public:

@@ -19,6 +19,8 @@
 
     #include "IEnvironement.hpp"
 
+class IEnvironement;
+
 class Player {
 	public:
 		Player() = default;
@@ -32,6 +34,11 @@ class Player {
 		void draw(sf::RenderWindow &window);
 
 		bool checkCollision(const std::vector<std::shared_ptr<IEnvironement>> &environements, const sf::Vector2f &pos);
+
+		void setDead();
+		void setWin();
+		bool isDead() {return _dead;};
+		bool hasWin() {return _win;};
 
 		//getters
 		const sf::Vector2f getPosition() const;
@@ -56,6 +63,9 @@ class Player {
 		Jump _jump;
 		Move _move;
 		Physics _physics;
+
+		bool _win;
+		bool _dead;
 };
 
 #endif /* !PLAYER_HPP_ */

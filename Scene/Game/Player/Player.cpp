@@ -59,8 +59,11 @@ bool Player::checkCollision(const std::vector<std::shared_ptr<IEnvironement>> &e
 	for (auto &elem : environements) {
 		for (int i = 0; i < elem->getPositions().size(); i++) {
 			elem->setPosition(i);
-			if (elem->getTag() == "Wall" && _playerSprite.getGlobalBounds().intersects(elem->getSprite().getGlobalBounds()))
-				return true;
+			if (_playerSprite.getGlobalBounds().intersects(elem->getSprite().getGlobalBounds())) {
+				elem->onCollsion(*this);
+				if (elem->getTag() == "Wall")
+					return true;
+			}
 		}
 	}
 	return false;
@@ -81,3 +84,16 @@ void Player::setMovements(const float &x, const float &y)
 	_jump.setSpeed(y);
 	_physics.reset();
 }
+
+void Player::setDead()
+{
+    	_dead = true;
+   	 //setAnimator
+}
+
+void Player::setWin()
+{
+	std::cout <<"yo" <<std::endl;
+	_win = true;
+	_animator.changeState(1);
+};

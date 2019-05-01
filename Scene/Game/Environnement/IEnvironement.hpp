@@ -8,39 +8,45 @@
 #ifndef IENVIRONEMENT_HPP_
     #define IENVIRONEMENT_HPP_
 
-    #include "SpriteRenderer.hpp"
+	#include "Player.hpp"
+
+class Player;
 
 class IEnvironement {
 	public:
 		virtual ~IEnvironement() {};
 
-		virtual void draw(sf::RenderWindow &window);
+		void draw(sf::RenderWindow &window);
+		virtual void onCollsion(Player &player) {};
+        virtual void onCollsion(IEnvironement &environement) {};
+
+		//setting on positions
+        void addPosition(const sf::Vector2f &pos);
+        void addPosition(const float &x, const float &y);
+        void addPosition(const std::vector<sf::Vector2f> &pos);
+        void resetPosition(const sf::Vector2f &pos);
+        void resetPosition(const std::vector<sf::Vector2f> &pos);
+        void resetPosition(const float &x, const float &y);
 
 		//getters
-		void addPosition(const sf::Vector2f &pos);
-		void addPosition(const float &x, const float &y);
-		void addPosition(const std::vector<sf::Vector2f> &pos);
-		void resetPosition(const sf::Vector2f &pos);
-		void resetPosition(const std::vector<sf::Vector2f> &pos);
-		void resetPosition(const float &x, const float &y);
+        sf::Sprite getSprite() const;
+        const bool isActive() const;
+        const std::vector<sf::Vector2f> &getPositions() const;
+        const std::string &getTag() const {return _tag;};
+
+        //setters
 		void setPosition(const int &i);
 		void setActive(const bool &active);
 		void setTag(const std::string &tag) {_tag = tag;};
 		void rotate(int rotation);
 
-		//setters
-		sf::Sprite getSprite() const;
-		const bool isActive() const;
-		const std::vector<sf::Vector2f> &getPositions() const;
-		const std::string &getTag() const {return _tag;};
-		
 	protected:
 		std::string _tag;
-		SpriteRenderer _wallRenderer;
+		SpriteRenderer _envRenderer;
 
-		sf::Texture _wallTexture;
-		sf::IntRect _wallRect;
-		sf::Sprite _wallSprite;
+		sf::Texture _envTexture;
+		sf::IntRect _envRect;
+		sf::Sprite _envSprite;
 		std::vector<sf::Vector2f> _positions;
 	private:
 };

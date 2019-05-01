@@ -38,7 +38,8 @@ void Game::handleEvent(sf::Event event)
 void Game::reset()
 {
 	_player.setPosition(_loader.getPosByChar('P', 50)[0]);
-	_environement[0]->resetPosition(_loader.getPosByChar('X', 50));
+	_environement[0]->resetPosition(_loader.getPosByChar('S', 50));
+	_environement[1]->resetPosition(_loader.getPosByChar('X', 50));
 }
 
 void Game::init(sf::RenderWindow &window)
@@ -49,7 +50,12 @@ void Game::init(sf::RenderWindow &window)
 
 	_player.init(50, 46, "Ressources/game/player.png");
 	_player.initAnimator(50, 46, 0.5, 2, 5);
-	_player.addStateAnimator(10, 0);
+	_player.addStateAnimator(5, 0);
+	_player.addStateAnimator(5, 5);
+
+	EndLevelTrigger *end = new EndLevelTrigger;
+	end->init(50, 50, "Ressources/game/door.png");
+	_environement.push_back(std::shared_ptr<EndLevelTrigger>(end));
 
 	Wall *walls = new Wall;
 	walls->init(50, 50, "Ressources/game/wall.png");
