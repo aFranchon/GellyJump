@@ -46,7 +46,7 @@ void Core::loadMenu()
 
 void Core::loadWin(const std::string &print)
 {
-	std::cout <<print <<std::endl;
+	_scenes[2]->setText(print);
 	_scenes[2]->activate();
 }
 
@@ -78,7 +78,6 @@ void Core::run()
 	win->init(_window);
 	win->desactivate();
 	_scenes.push_back(std::shared_ptr<IScene>(win));
-	std::cout <<_scenes[2]->isActive() <<std::endl;
 
 	while (_window.isOpen())
 	{

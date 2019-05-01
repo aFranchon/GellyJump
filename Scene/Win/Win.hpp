@@ -17,7 +17,7 @@ class Win : public IScene {
 		Win() = default;
 		~Win() = default;
 
-		void init(sf::RenderWindow &window);
+		void init(sf::RenderWindow &window, const std::string &font = "Ressources/fonts/manaspc.ttf");
 		void handleEvent(const sf::Event &event);
 		void refresh();
 
@@ -31,6 +31,7 @@ class Win : public IScene {
 		sf::RenderWindow *_window;
 
 		sf::Text _text;
+		sf::Font _font;
 
 		Button _menu;
 		Button _nextLevel;

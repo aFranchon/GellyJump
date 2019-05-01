@@ -150,7 +150,6 @@ void Menu::activate()
 	_isActive = true;
 
 	sf::View view = _window->getView();
-	view.zoom(0.5);
 	view.setCenter(_window->getSize().x / 2, _window->getSize().y / 2);
 	_window->setView(view);
 }

@@ -22,6 +22,8 @@ class IScene {
 		virtual void activate() = 0;
 		virtual void desactivate() = 0;
 
+		virtual void setText(const std::string &print) {};
+
 		const bool isActive() const {return _isActive;};
 
 	protected:

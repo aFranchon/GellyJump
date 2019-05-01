@@ -106,7 +106,6 @@ void Game::activate()
 	
 	auto view = _window->getView();
 	view.setCenter(_player.getPosition());
-	view.zoom(2);
 	_window->setView(view);
 }
 
