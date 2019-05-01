@@ -38,15 +38,27 @@ void Core::loadGame()
 void Core::loadMenu()
 {
 	_scenes[1]->desactivate();
+	_scenes[2]->desactivate();
 	_scenes[0]->activate();
 	auto view = _window.getView();
 	_window.setView(view);
 }
 
+void Core::loadWin(const std::string &print)
+{
+	std::cout <<print <<std::endl;
+	_scenes[2]->activate();
+}
+
+void Core::loadLose()
+{
+	//plus tard
+}
+
 void Core::run()
 {
 	Menu *menu = new Menu();
-	menu->init(_window, _isPlay);
+	menu->init(_window);
 	std::function<void()> changeForGame = [&]() {loadGame();};
 	menu->setChangeScene(changeForGame);
 	_scenes.push_back(std::shared_ptr<IScene>(menu));
@@ -56,7 +68,18 @@ void Core::run()
 	game->desactivate();
 	std::function<void()> changeForMenu = [&]() {loadMenu();};
 	game->setChangeScene(changeForMenu);
+	std::function<void(const std::string &print)> openWin = [&](const std::string &print) {loadWin(print);};
+	game->setChangeWin(openWin);
+	std::function<void()> openLose = [&]() {loadLose();};
+	game->setChangeLose(openLose);
 	_scenes.push_back(std::shared_ptr<IScene>(game));
+
+	Win *win = new Win();
+	win->init(_window);
+	win->desactivate();
+	_scenes.push_back(std::shared_ptr<IScene>(win));
+	std::cout <<_scenes[2]->isActive() <<std::endl;
+
 	while (_window.isOpen())
 	{
 		_window.clear();

@@ -18,9 +18,9 @@ class Slider : public UI {
 		~Slider() = default;
 
 		//will draw only if isActivated
-		void init(	int heightSlider, int widthSlider, const std::string &textureSlider, 
-					int heightButton, int widthButton, const std::string &textureButton,
-					const std::string &font, const int value);
+		void init(	int heightSlider = 30, int widthSlider = 300, const std::string &textureSlider = "Ressources/menu/slider.png", 
+				int heightButton = 30, int widthButton = 30, const std::string &textureButton = "Ressources/menu/buttonSlider.png",
+				const std::string &font = "Ressources/fonts/manaspc.ttf", const int value = 100);
 
 		void onClick(sf::Vector2i mouse);
 		int onRelease(sf::Vector2i mouse);

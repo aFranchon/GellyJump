@@ -17,7 +17,8 @@ class Button : public UI {
 		const std::string &font = "Ressources/fonts/manaspc.ttf");
 		~Button() = default;
 
-		void init(const int height, const int width, const std::string &texture, const std::string &font);
+		void init(const int height = 100, const int width = 100, const std::string &texture = "Ressources/menu/boutton.png",
+		const std::string &font = "Ressources/fonts/manaspc.ttf");
 
 		void onClick(sf::Vector2i mouse);
 		void onMove(sf::Vector2i mouse);

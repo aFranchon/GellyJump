@@ -16,13 +16,14 @@ SRC		=	Core/Core.cpp								\
 			Scene/Game/Environnement//Walls/Wall.cpp	\
 			Scene/Game/Game.cpp							\
 			Scene/Menu/Menu.cpp							\
-			Scene/Game/GameUtils/Animator.cpp			\
-			Scene/Game/GameUtils/MapLoader.cpp			\
+			Scene/Win/Win.cpp							\
+			GameUtils/Animator.cpp						\
+			GameUtils/MapLoader.cpp						\
 			Main.cpp
 
 OBJ		=	$(SRC:.cpp=.o)
 
-INCLUDE	=	-I./Scene/Game/ -I./Scene/Game/Player -I./Scene/Game/Player/Actions -I./Scene/Menu -I./LibMenu/ -I./LibMenu/Button -I./LibMenu/Slider -I./Scene -I./Core -I./Scene/Game/GameUtils -I./Movements -I./Scene/Game/Environnement -I./Scene/Game/Environnement/EndLevelTrigger -I./Scene/Game/Environnement/Walls
+INCLUDE	=	-I./Scene/Game/ -I./Scene/Win -I./Scene/Game/Player -I./Scene/Game/Player/Actions -I./Scene/Menu -I./LibMenu/ -I./LibMenu/Button -I./LibMenu/Slider -I./Scene -I./Core -I./GameUtils -I./Movements -I./Scene/Game/Environnement -I./Scene/Game/Environnement/EndLevelTrigger -I./Scene/Game/Environnement/Walls
 
 LINK_FLAGS	=	-lsfml-graphics -lsfml-window -lsfml-system
 

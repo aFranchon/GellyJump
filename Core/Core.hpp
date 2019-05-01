@@ -11,6 +11,7 @@
     #include <SFML/Graphics.hpp>
     #include "Game.hpp"
     #include "Menu.hpp"
+    #include "Win.hpp"
 
 class Core {
 	public:
@@ -22,6 +23,8 @@ class Core {
 
 		void loadGame();
 		void loadMenu();
+		void loadWin(const std::string &print);
+		void loadLose();
 
 	protected:
 	private:

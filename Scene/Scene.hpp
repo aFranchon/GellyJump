@@ -17,7 +17,7 @@ class IScene {
 		~IScene() {};
 
 		virtual void refresh() = 0;
-		virtual void handleEvent(const sf::Event event) = 0;
+		virtual void handleEvent(const sf::Event &event) = 0;
 
 		virtual void activate() = 0;
 		virtual void desactivate() = 0;

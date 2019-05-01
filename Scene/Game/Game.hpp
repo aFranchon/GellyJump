@@ -29,12 +29,14 @@ class Game : public IScene{
 		void init(sf::RenderWindow &window);
 		void reset();
 		void refresh();
-		void handleEvent(const sf::Event event);
+		void handleEvent(const sf::Event &event);
 
 		void activate();
 		void desactivate();
 
 		void setChangeScene(const std::function<void()> &func);
+		void setChangeLose(const std::function<void()> &func);
+		void setChangeWin(const std::function<void(const std::string &print)> &func);
 
 	private:
 		sf::RenderWindow *_window;
@@ -44,8 +46,12 @@ class Game : public IScene{
 		Shoot _shoot;
 
 		std::function<void()> _loadMenu;
+		std::function<void()> _loadLose;
+		std::function<void(const std::string &print)> _loadWin;
 
-		std::vector<std::shared_ptr<IEnvironement>> _environement;//will be a vector of walls
+		bool _ended = false;
+
+		std::vector<std::shared_ptr<IEnvironement>> _environement;
 };
 
 #endif /* !GAME_HPP_ */

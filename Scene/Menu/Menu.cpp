@@ -101,10 +101,9 @@ void Menu::linkButtons()
 		_buttons.push_back(elem);
 }
 
-void Menu::init(sf::RenderWindow &window, bool &isPlay)
+void Menu::init(sf::RenderWindow &window)
 {
 	_window = &window;
-	this->isPlay = &isPlay;
 
 	initMainMenu();
 	initOptionMenu();
@@ -112,11 +111,12 @@ void Menu::init(sf::RenderWindow &window, bool &isPlay)
 	linkButtons();
 }
 
-void Menu::handleEvent(const sf::Event event)
+void Menu::handleEvent(const sf::Event &event)
 {
 	if (event.type == sf::Event::KeyPressed)
 			if (event.key.code == sf::Keyboard::Escape)
 				exit(0);
+
 	if (event.type == sf::Event::MouseButtonPressed && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		for (auto &elem : _buttons)
 			if (elem->isActivated())

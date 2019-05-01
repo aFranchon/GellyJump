@@ -33,7 +33,6 @@ class EndLevelTrigger : public IEnvironement {
 		//overload of the Environement's onCollision method
         void onCollsion(Player &player)
         {
-			std::cout <<"putain" <<std::endl;
             player.setWin();
         };
 

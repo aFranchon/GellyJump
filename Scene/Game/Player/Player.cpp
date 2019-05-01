@@ -34,6 +34,9 @@ void Player::refresh(const std::vector<std::shared_ptr<IEnvironement>> &environe
 {
 	_animator.refresh(_playerRect);
 	_playerSprite.setTextureRect(_playerRect);
+	
+	if (_dead || _win)
+		return;
 
 	sf::Vector2f pos = _playerSprite.getPosition();
 	if (!_move.getJustSet() && checkCollision(environements, sf::Vector2f(_move.getNext(pos.x), pos.y)))
@@ -93,7 +96,6 @@ void Player::setDead()
 
 void Player::setWin()
 {
-	std::cout <<"yo" <<std::endl;
 	_win = true;
 	_animator.changeState(1);
 };
