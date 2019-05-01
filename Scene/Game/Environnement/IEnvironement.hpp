@@ -14,23 +14,34 @@ class IEnvironement {
 	public:
 		virtual ~IEnvironement() {};
 
-		virtual void draw(sf::RenderWindow &window) = 0;
+		virtual void draw(sf::RenderWindow &window);
 
 		//getters
-		virtual void addPosition(const sf::Vector2f &pos) = 0;
-		virtual void addPosition(const float &x, const float &y) = 0;
-		virtual void setPosition(const int &i) = 0;
-		virtual void setActive(const bool &active) = 0;
+		void addPosition(const sf::Vector2f &pos);
+		void addPosition(const float &x, const float &y);
+		void addPosition(const std::vector<sf::Vector2f> &pos);
+		void resetPosition(const sf::Vector2f &pos);
+		void resetPosition(const std::vector<sf::Vector2f> &pos);
+		void resetPosition(const float &x, const float &y);
+		void setPosition(const int &i);
+		void setActive(const bool &active);
 		void setTag(const std::string &tag) {_tag = tag;};
+		void rotate(int rotation);
 
 		//setters
-		virtual sf::Sprite getSprite() const = 0;
-		virtual const bool isActive() const = 0;
-		virtual const std::vector<sf::Vector2f> &getPositions() const = 0;
+		sf::Sprite getSprite() const;
+		const bool isActive() const;
+		const std::vector<sf::Vector2f> &getPositions() const;
 		const std::string &getTag() const {return _tag;};
 		
 	protected:
 		std::string _tag;
+		SpriteRenderer _wallRenderer;
+
+		sf::Texture _wallTexture;
+		sf::IntRect _wallRect;
+		sf::Sprite _wallSprite;
+		std::vector<sf::Vector2f> _positions;
 	private:
 };
 

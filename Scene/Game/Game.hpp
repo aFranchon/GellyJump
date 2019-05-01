@@ -13,11 +13,12 @@
 	#include <SFML/Graphics.hpp>
 
 	#include "Scene.hpp"
+	#include "MapLoader.hpp"
 
-	#include "Player/Player.hpp" 
-	#include "Player/Actions/Shoot.hpp"
+	#include "Player.hpp" 
+	#include "Shoot.hpp"
 
-	#include "Environnement/Wall.hpp"
+	#include "Wall.hpp"
 
 class Game : public IScene{
 	public:
@@ -25,6 +26,7 @@ class Game : public IScene{
 		~Game() = default;
 
 		void init(sf::RenderWindow &window);
+		void reset();
 		void refresh();
 		void handleEvent(const sf::Event event);
 
@@ -35,6 +37,7 @@ class Game : public IScene{
 
 	private:
 		sf::RenderWindow *_window;
+		MapLoader _loader;
 
 		Player _player;
 		Shoot _shoot;
