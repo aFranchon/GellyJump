@@ -88,14 +88,20 @@ void Player::setMovements(const float &x, const float &y)
 	_physics.reset();
 }
 
-void Player::setDead()
+void Player::setDead(const bool &dead)
 {
-    	_dead = true;
-   	 //setAnimator
+    	_dead = dead;
+	if (dead)
+   		_animator.changeState(2);
+	else
+		_animator.changeState(0);
 }
 
-void Player::setWin()
+void Player::setWin(const bool &win)
 {
-	_win = true;
-	_animator.changeState(1);
+	_win = win;
+	if (win)
+		_animator.changeState(1);
+	else
+		_animator.changeState(0);
 };

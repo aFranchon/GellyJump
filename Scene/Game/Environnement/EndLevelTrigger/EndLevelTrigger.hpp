@@ -33,7 +33,7 @@ class EndLevelTrigger : public IEnvironement {
 		//overload of the Environement's onCollision method
         void onCollsion(Player &player)
         {
-            player.setWin();
+            player.setWin(true);
         };
 
 	protected:

@@ -35,8 +35,8 @@ class Player {
 
 		bool checkCollision(const std::vector<std::shared_ptr<IEnvironement>> &environements, const sf::Vector2f &pos);
 
-		void setDead();
-		void setWin();
+		void setDead(const bool &dead);
+		void setWin(const bool &win);
 		bool isDead() {return _dead;};
 		bool hasWin() {return _win;};
 

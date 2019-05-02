@@ -39,10 +39,13 @@ void Core::loadMenu()
 {
 	_scenes[1]->desactivate();
 	_scenes[2]->desactivate();
+	_scenes[3]->desactivate();
 	_scenes[0]->activate();
 	auto view = _window.getView();
 	_window.setView(view);
 }
+
+void Core::loadMenu(int value) {(void)value;loadMenu();}
 
 void Core::loadWin(const std::string &print)
 {
@@ -50,9 +53,23 @@ void Core::loadWin(const std::string &print)
 	_scenes[2]->activate();
 }
 
-void Core::loadLose()
+void Core::loadLose(const std::string &print)
 {
-	//plus tard
+	_scenes[3]->setText(print);
+	_scenes[3]->activate();
+}
+
+void Core::resetGame(int value)
+{
+	(void)value;
+	_scenes[1]->reset();
+	_scenes[3]->desactivate();
+}
+
+void Core::nextLevel(int value)
+{
+	(void)value;
+	//later
 }
 
 void Core::run()
@@ -70,14 +87,26 @@ void Core::run()
 	game->setChangeScene(changeForMenu);
 	std::function<void(const std::string &print)> openWin = [&](const std::string &print) {loadWin(print);};
 	game->setChangeWin(openWin);
-	std::function<void()> openLose = [&]() {loadLose();};
+	std::function<void(const std::string &print)> openLose = [&](const std::string &print) {loadLose(print);};
 	game->setChangeLose(openLose);
 	_scenes.push_back(std::shared_ptr<IScene>(game));
 
 	Win *win = new Win();
 	win->init(_window);
 	win->desactivate();
+	std::function<void(int value)> changeForMenuWin = [&](int value) {loadMenu(value);};
+	std::function<void(int value)> changeForNextLevel = [&](int value) {nextLevel(value);};
+	win->setMenuFunc(changeForMenuWin);
+	win->setNextLevelFunc(changeForNextLevel);
 	_scenes.push_back(std::shared_ptr<IScene>(win));
+
+	Lose *lose = new Lose();
+	lose->init(_window);
+	lose->desactivate();
+	std::function<void(int value)> changeResetGame = [&](int value) {resetGame(value);};
+	lose->setMenuFunc(changeForMenuWin);
+	lose->setResetFunc(changeResetGame);
+	_scenes.push_back(std::shared_ptr<IScene>(lose));
 
 	while (_window.isOpen())
 	{

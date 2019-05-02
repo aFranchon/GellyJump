@@ -12,6 +12,7 @@
     #include "Game.hpp"
     #include "Menu.hpp"
     #include "Win.hpp"
+    #include "Lose.hpp"
 
 class Core {
 	public:
@@ -23,8 +24,11 @@ class Core {
 
 		void loadGame();
 		void loadMenu();
+		void loadMenu(int value);
+		void loadLose(const std::string &print);
 		void loadWin(const std::string &print);
-		void loadLose();
+		void resetGame(int value);
+		void nextLevel(int value);
 
 	protected:
 	private:

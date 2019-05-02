@@ -25,7 +25,7 @@ class UI {
 		bool isActivated() const {return _isActivated;};
 
 		//methods to add actions to an UI element
-		void setAction(std::function<void(int value)> &action) {_action.push_back(action);};
+		void setAction(const std::function<void(int value)> &action) {_action.push_back(action);};
 
 		void setHide(std::shared_ptr<UI> button) {_toHide.push_back(button);}
 		void setHide(std::vector<std::shared_ptr<UI>> buttons) 

@@ -45,6 +45,8 @@ void Game::reset()
 	_environement[1]->resetPosition(_loader.getPosByChar('X', 50));
 
 	_ended = false;
+	_player.setDead(false);
+	_player.setWin(false);
 }
 
 void Game::init(sf::RenderWindow &window)
@@ -94,7 +96,7 @@ void Game::refresh()
 	}
 
 	if (_player.isDead()) {
-		_loadLose();
+		_loadLose("to set later\n");
 		_ended = true;
 		return;
 	}
@@ -115,5 +117,5 @@ void Game::desactivate()
 }
 
 void Game::setChangeScene(const std::function<void ()> &func) {_loadMenu = func;}
-void Game::setChangeLose(const std::function<void ()> &func) {_loadLose = func;}
+void Game::setChangeLose(const std::function<void (const std::string &print)> &func) {_loadLose = func;}
 void Game::setChangeWin(const std::function<void (const std::string &print)> &func) {_loadWin = func;}

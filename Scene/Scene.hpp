@@ -23,6 +23,7 @@ class IScene {
 		virtual void desactivate() = 0;
 
 		virtual void setText(const std::string &print) {};
+		virtual void reset() {};
 
 		const bool isActive() const {return _isActive;};
 

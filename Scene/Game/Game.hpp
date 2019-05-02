@@ -35,7 +35,7 @@ class Game : public IScene{
 		void desactivate();
 
 		void setChangeScene(const std::function<void()> &func);
-		void setChangeLose(const std::function<void()> &func);
+		void setChangeLose(const std::function<void(const std::string &print)> &func);
 		void setChangeWin(const std::function<void(const std::string &print)> &func);
 
 	private:
@@ -46,7 +46,7 @@ class Game : public IScene{
 		Shoot _shoot;
 
 		std::function<void()> _loadMenu;
-		std::function<void()> _loadLose;
+		std::function<void(const std::string &print)> _loadLose;
 		std::function<void(const std::string &print)> _loadWin;
 
 		bool _ended = false;

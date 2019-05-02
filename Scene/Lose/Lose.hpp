@@ -2,20 +2,20 @@
 ** EPITECH PROJECT, 2019
 ** GellyJump
 ** File description:
-** Win
+** Lose
 */
 
-#ifndef WIN_HPP_
-    #define WIN_HPP_
-
+#ifndef LOSE_HPP_
+    #define LOSE_HPP_
+    
     #include "Button.hpp"
 
     #include "Scene.hpp"
 
-class Win : public IScene {
+class Lose : public IScene {
 	public:
-		Win() = default;
-		~Win() = default;
+		Lose() = default;
+		~Lose() = default;
 
 		void init(sf::RenderWindow &window, const std::string &font = "Ressources/fonts/manaspc.ttf");
 		void handleEvent(const sf::Event &event);
@@ -23,7 +23,7 @@ class Win : public IScene {
 
 		void setText(const std::string &print);
 		void setMenuFunc(const std::function<void(int value)> &func);
-		void setNextLevelFunc(const std::function<void(int value)> &func);
+		void setResetFunc(const std::function<void(int value)> &func);
 
 		void activate();
 		void desactivate();
@@ -36,7 +36,9 @@ class Win : public IScene {
 		sf::Font _font;
 
 		Button _menu;
-		Button _nextLevel;
+		Button _restart;
+	protected:
+	private:
 };
 
-#endif /* !WIN_HPP_ */
+#endif /* !LOSE_HPP_ */
