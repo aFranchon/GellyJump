@@ -16,6 +16,7 @@ class IEnvironement {
 	public:
 		virtual ~IEnvironement() {};
 
+		virtual void refresh() {};
 		void draw(sf::RenderWindow &window);
 		virtual void onCollsion(Player &player) {};
         virtual void onCollsion(IEnvironement &environement) {};

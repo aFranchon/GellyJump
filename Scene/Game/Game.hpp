@@ -20,6 +20,7 @@
 
 	#include "Wall.hpp"
 	#include "EndLevelTrigger.hpp"
+	#include "StaticMurderer.hpp"
 
 class Game : public IScene{
 	public:

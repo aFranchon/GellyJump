@@ -42,7 +42,8 @@ void Game::reset()
 {
 	_player.setPosition(_loader.getPosByChar('P', 50)[0]);
 	_environement[0]->resetPosition(_loader.getPosByChar('S', 50));
-	_environement[1]->resetPosition(_loader.getPosByChar('X', 50));
+	_environement[1]->resetPosition(_loader.getPosByChar('I', 50));
+	_environement[2]->resetPosition(_loader.getPosByChar('X', 50));
 
 	_ended = false;
 	_player.setDead(false);
@@ -62,11 +63,15 @@ void Game::init(sf::RenderWindow &window)
 
 	EndLevelTrigger *end = new EndLevelTrigger;
 	end->init(50, 50, "Ressources/game/door.png");
-	_environement.push_back(std::shared_ptr<EndLevelTrigger>(end));
+	_environement.push_back(std::shared_ptr<IEnvironement>(end));
+
+	StaticMurderer *staticMurderer = new StaticMurderer;
+	staticMurderer->init(50, 50, "Ressources/game/spin.png");
+	_environement.push_back(std::shared_ptr<IEnvironement>(staticMurderer));
 
 	Wall *walls = new Wall;
 	walls->init(50, 50, "Ressources/game/wall.png");
-	_environement.push_back(std::shared_ptr<Wall>(walls));
+	_environement.push_back(std::shared_ptr<IEnvironement>(walls));
 
 	reset();
 }

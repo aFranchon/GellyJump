@@ -2,20 +2,18 @@
 ** EPITECH PROJECT, 2019
 ** GellyJump
 ** File description:
-** Wall
+** StaticMurderer
 */
 
-#ifndef WALL_HPP_
-    #define WALL_HPP_
+#ifndef STATICMURDERER_HPP_
+    #define STATICMURDERER_HPP_
 
-    #include "SpriteRenderer.hpp"
-    #include "IEnvironement.hpp"
+     #include "IEnvironement.hpp"
 
-class Wall : public IEnvironement {
+class StaticMurderer : public IEnvironement {
 	public:
-		Wall() = default;
-		Wall(const int &height, const int &width, const std::string &texture) {init(height, width, texture);};
-		~Wall() = default;
+		StaticMurderer() = default;
+		~StaticMurderer() = default;
 
 		void init(const int &width, const int &height, const std::string &texture)
 		{
@@ -28,11 +26,17 @@ class Wall : public IEnvironement {
 				throw;
 			_envSprite.setTexture(_envTexture);
 			_envSprite.setTextureRect(_envRect);
-			_tag = "Wall";
-		}
+			_tag = "Murderer";
+		};
+
+		//overload of the Environement's onCollision method
+		void onCollsion(Player &player)
+		{
+			player.setDead(true);
+		};
 
 	protected:
 	private:
 };
 
-#endif /* !WALL_HPP_ */
+#endif /* !STATICMURDERER_HPP_ */

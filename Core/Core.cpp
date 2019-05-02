@@ -110,7 +110,7 @@ void Core::run()
 
 	while (_window.isOpen())
 	{
-		_window.clear();
+		_window.clear(sf::Color::Green);
 		handleEvent();
 		for (auto &elem : _scenes)
 			if (elem->isActive())

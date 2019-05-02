@@ -13,7 +13,6 @@ SRC		=	Core/Core.cpp								\
 			Scene/Game/Player/Player.cpp				\
 			Scene/Game/Player/Actions/Shoot.cpp			\
 			Scene/Game/Environnement/IEnvironement.cpp	\
-			Scene/Game/Environnement//Walls/Wall.cpp	\
 			Scene/Game/Game.cpp							\
 			Scene/Menu/Menu.cpp							\
 			Scene/Win/Win.cpp							\
@@ -24,7 +23,7 @@ SRC		=	Core/Core.cpp								\
 
 OBJ		=	$(SRC:.cpp=.o)
 
-INCLUDE	=	-I./Scene/Game/ -I./Scene/Win -I./Scene/Lose -I./Scene/Game/Player -I./Scene/Game/Player/Actions -I./Scene/Menu -I./LibMenu/ -I./LibMenu/Button -I./LibMenu/Slider -I./Scene -I./Core -I./GameUtils -I./Movements -I./Scene/Game/Environnement -I./Scene/Game/Environnement/EndLevelTrigger -I./Scene/Game/Environnement/Walls
+INCLUDE	=	-I./Scene/Game/ -I./Scene/Win -I./Scene/Lose -I./Scene/Game/Player -I./Scene/Game/Player/Actions -I./Scene/Menu -I./LibMenu/ -I./LibMenu/Button -I./LibMenu/Slider -I./Scene -I./Core -I./GameUtils -I./Movements -I./Scene/Game/Environnement -I./Scene/Game/Environnement/EndLevelTrigger -I./Scene/Game/Environnement/StaticMurderer -I./Scene/Game/Environnement/Walls
 
 LINK_FLAGS	=	-lsfml-graphics -lsfml-window -lsfml-system
 
